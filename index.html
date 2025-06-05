@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PowerGridX - Smart Grid Platform</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f8fb; margin: 0; }
+    .container { max-width: 1200px; margin: 2rem auto; padding: 1rem; }
+    .header {
+      display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem;
+    }
+    .logo {
+      height: 64px;
+      width: auto;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 0.25rem;
+      object-fit: contain;
+    }
+    h1 { color: #1b263b; font-size: 2.2rem; margin: 0;}
+    .cards { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; }
+    .card {
+      background: #fff; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      width: 300px; min-height: 170px; padding: 1.3rem; position: relative; transition: box-shadow .2s;
+      cursor: pointer; display: flex; flex-direction: column; justify-content: center;
+    }
+    .card:hover { box-shadow: 0 8px 24px rgba(30,64,175,0.12);}
+    .modal-bg {
+      display: none; position: fixed; left: 0; top: 0; width:100vw; height:100vh;
+      background: rgba(0,0,0,0.35); z-index: 10; justify-content: center; align-items: center;
+    }
+    .modal {
+      background: #fff; border-radius: 8px; max-width: 470px; width: 92vw; padding: 2rem 1.2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.17); position: relative;
+      max-height: 90vh; overflow-y: auto;
+    }
+    .modal h2 { margin-top: 0; color: #1b263b;}
+    .close { position: absolute; right: 1.2rem; top: 1.2rem; cursor: pointer; font-size: 1.5em; color: #666;}
+    .tools-list, .feature-list, .benefit-list { margin-left: 1rem; }
+    img.sketch, img.card-img { display:block; margin: 1rem auto; max-width: 85%; border-radius: 6px; box-shadow: 0 1px 6px #ccc;}
+    .card-img { max-height: 42px; margin-bottom: 0.7rem; margin-top: 0;}
+    .diagram-link {
+      display: block; text-align: center; margin: 1.6rem 0 .5rem 0; font-size: 1.1rem; color: #2153a2;
+      text-decoration: underline; font-weight: 500;
+    }
+    .proofs-list img { max-width: 93%; margin: 0.7rem auto; display: block;}
+    .field-report-img { max-width: 92%; margin: 0.7rem auto; border-radius: 4px;}
+    .caption { font-size: 0.95em; color: #384858; margin-top: 0.3em; text-align: center;}
+    @media (max-width:800px) { .cards{flex-direction:column;align-items:center;} .card{width:96vw;} }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="image2" alt="PowerGridX Logo" class="logo">
+      <h1>PowerGridX</h1>
+    </div>
+    <div class="cards">
+      <div class="card" data-modal="meter">
+        <img src="https://via.placeholder.com/60x42?text=1" alt="" class="card-img">
+        <strong>1. Tamper-Resistant Smart Meter</strong>
+        <p>Secure, accurate metering with anti-theft, NFC, and user authentication.</p>
+      </div>
+      <div class="card" data-modal="pole">
+        <img src="https://via.placeholder.com/60x42?text=2" alt="" class="card-img">
+        <strong>2. Renewable Smart Pole</strong>
+        <p>Solar-powered relay pole with sensors, edge AI, and modular upgrades.</p>
+      </div>
+      <div class="card" data-modal="psn">
+        <img src="https://via.placeholder.com/60x42?text=3" alt="" class="card-img">
+        <strong>3. Passive Smart Node</strong>
+        <p>Low-cost IoT node for grid-edge monitoring and tamper detection.</p>
+      </div>
+      <div class="card" data-modal="impact">
+        <img src="https://via.placeholder.com/60x42?text=4" alt="" class="card-img">
+        <strong>4. Benefits & Impact</strong>
+        <p>Reduced losses, better reliability, predictive maintenance, and access.</p>
+      </div>
+      <div class="card" data-modal="ui">
+        <img src="https://via.placeholder.com/60x42?text=5" alt="" class="card-img">
+        <strong>5. User Interfaces</strong>
+        <p>Web dashboard, USSD for feature phones, and mobile app for all users.</p>
+      </div>
+      <div class="card" data-modal="field-report">
+        <img src="https://via.placeholder.com/60x42?text=6" alt="" class="card-img">
+        <strong>6. Visual Field Reports</strong>
+        <p>Photos, annotated maps, and on-site validation of PSN/pole deployment.</p>
+      </div>
+      <div class="card" data-modal="proofs">
+        <img src="https://via.placeholder.com/60x42?text=7" alt="" class="card-img">
+        <strong>7. Proofs of Intent</strong>
+        <p>Feedback, letters, and messages from 7+ interested users or partners.</p>
+      </div>
+    </div>
+    <a class="diagram-link" href="image1" target="_blank">View Full PowerGridX System Architecture Diagram</a>
+  </div>
+  
+  <!-- Modals -->
+  <div class="modal-bg" id="modal-meter">
+    <div class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Tamper-Resistant Smart Meter</h2>
+      <ul class="feature-list">
+        <li>Anti-theft enclosure & tamper sensors</li>
+        <li>NFC/ID card authentication for contractors</li>
+        <li>Real-time usage & balance data</li>
+        <li>Supports prepaid/postpaid, USSD recharge</li>
+      </ul>
+      <b>Components/Tools:</b>
+      <ul class="tools-list">
+        <li>Microcontroller (ESP32/STM32)</li>
+        <li>ATM90E36/ADE7753 metering ICs</li>
+        <li>NFC card reader, anti-tamper sensor</li>
+        <li>LoRaWAN/NB-IoT/PLC module</li>
+      </ul>
+      <img class="sketch" src="https://via.placeholder.com/320x140?text=Smart+Meter+Sketch" alt="Smart Meter Sketch">
+    </div>
+  </div>
+  <div class="modal-bg" id="modal-pole">
+    <div class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Renewable Smart Pole</h2>
+      <ul class="feature-list">
+        <li>Solar-powered energy relay hub</li>
+        <li>LoRaWAN/PLC/NB-IoT gateway</li>
+        <li>Environmental monitoring (temp, humidity, etc.)</li>
+        <li>Modular for lighting, security cameras, etc.</li>
+      </ul>
+      <b>Components/Tools:</b>
+      <ul class="tools-list">
+        <li>Solar panel & battery</li>
+        <li>Microcontroller (STM32/ESP32)</li>
+        <li>Sensor suite (temperature, motion, etc.)</li>
+        <li>LoRaWAN Gateway/Repeater</li>
+      </ul>
+      <img class="sketch" src="https://via.placeholder.com/320x140?text=Smart+Pole+Sketch" alt="Smart Pole Sketch">
+    </div>
+  </div>
+  <div class="modal-bg" id="modal-psn">
+    <div class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Passive Smart Node (PSN)</h2>
+      <ul class="feature-list">
+        <li>Clamps onto existing pole or cable</li>
+        <li>Solar and/or line-powered</li>
+        <li>Edge AI for tamper/theft detection</li>
+        <li>Low-cost, easy retrofit</li>
+      </ul>
+      <b>Components/Tools:</b>
+      <ul class="tools-list">
+        <li>MSP430/ESP32 microcontroller</li>
+        <li>Tamper/vibration sensor, solar cell</li>
+        <li>LoRaWAN/PLC module</li>
+        <li>QR code asset tracking</li>
+      </ul>
+      <img class="sketch" src="https://via.placeholder.com/320x140?text=PSN+Sketch" alt="Passive Smart Node Sketch">
+    </div>
+  </div>
+  <div class="modal-bg" id="modal-impact">
+    <div class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Benefits & Impact</h2>
+      <ul class="benefit-list">
+        <li>Reduces technical and non-technical losses (theft, tampering)</li>
+        <li>Enables predictive maintenance and rapid fault response</li>
+        <li>Improves grid reliability and energy access</li>
+        <li>Supports renewable integration and rural electrification</li>
+        <li>Empowers utilities and consumers with real-time data</li>
+      </ul>
+    </div>
+  </div>
+  <div class="modal-bg" id="modal-ui">
+    <div class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>User Interfaces</h2>
+      <b>Contractor Dashboard:</b>
+      <ul>
+        <li>Secure web UI for authorized installers/maintenance</li>
+        <li>Logs, asset management, and task assignment</li>
+      </ul>
+      <b>USSD:</b>
+      <ul>
+        <li>Recharge and check balance with short codes (e.g., <code>*123#</code>)</li>
+        <li>No smartphone required</li>
+      </ul>
+      <b>Mobile App:</b>
+      <ul>
+        <li>Android/iOS app for usage, recharge, and notifications</li>
+        <li>Push alerts for outages or maintenance</li>
+      </ul>
+      <img class="sketch" src="https://via.placeholder.com/320x140?text=User+Interface+Sketch" alt="UI Sketch">
+    </div>
+  </div>
+  <div class="modal-bg" id="modal-field-report">
+    <div class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Visual Field Reports</h2>
+      <img src="image1" alt="Field Deployment" class="field-report-img">
+      <div class="caption">Full PowerGridX system architecture & field deployment concept</div>
+      <p>
+        See annotated field photos, deployment maps, and sample on-site reports for validation of PSN and smart pole installations.
+      </p>
+      <!-- Add more images or field report links as you gather real data -->
+    </div>
+  </div>
+  <div class="modal-bg" id="modal-proofs">
+    <div class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Proofs of Intent</h2>
+      <p>
+        Below are select proofs of interest and intent from potential users, partners, or early test sites. (Add your real screenshots, letters, or quotes here.)
+      </p>
+      <div class="proofs-list">
+        <img src="https://via.placeholder.com/320x120?text=Letter+of+Intent+1" alt="Proof of Intent 1">
+        <img src="https://via.placeholder.com/320x120?text=WhatsApp+Chat+Screenshot" alt="WhatsApp Screenshot">
+        <img src="https://via.placeholder.com/320x120?text=Testimonial+2" alt="Testimonial 2">
+        <img src="https://via.placeholder.com/320x120?text=Signed+Form+3" alt="Signed Form 3">
+        <img src="https://via.placeholder.com/320x120?text=Partner+Email+4" alt="Partner Email 4">
+        <img src="https://via.placeholder.com/320x120?text=End+User+Interest+5" alt="Interest 5">
+        <img src="https://via.placeholder.com/320x120?text=Video+Message+6" alt="Video Message 6">
+        <!-- Add more as needed -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal logic
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.getElementById('modal-' + card.dataset.modal).style.display = 'flex';
+      });
+    });
+    function closeModal() {
+      document.querySelectorAll('.modal-bg').forEach(m => m.style.display='none');
+    }
+    window.onclick = function(event) {
+      document.querySelectorAll('.modal-bg').forEach(m => {
+        if (event.target === m) m.style.display='none';
+      });
+    }
+  </script>
+</body>
+</html>
