@@ -2,244 +2,585 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>PowerGridX - Smart Grid Platform</title>
+  <title>PowerGridX Demo</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f8fb; margin: 0; }
-    .container { max-width: 1200px; margin: 2rem auto; padding: 1rem; }
-    .header {
-      display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f8fb;
+      margin: 0;
     }
-    .logo {
-      height: 64px;
-      width: auto;
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      padding: 0.25rem;
+    /* Header */
+    .header-logo-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 2.2rem 0 1.2rem 0;
+      width: 100%;
+      text-align: center;
+    }
+    .logo-tight {
+      height: 56px;
+      width: 56px;
+      min-width: 56px;
       object-fit: contain;
+      display: block;
+      border-radius: 0;
+      box-shadow: none;
+      margin-right: 0.1rem;
     }
-    h1 { color: #1b263b; font-size: 2.2rem; margin: 0;}
-    .cards { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; }
-    .card {
-      background: #fff; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-      width: 300px; min-height: 170px; padding: 1.3rem; position: relative; transition: box-shadow .2s;
-      cursor: pointer; display: flex; flex-direction: column; justify-content: center;
+    .brand-text {
+      font-size: 2rem;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
     }
-    .card:hover { box-shadow: 0 8px 24px rgba(30,64,175,0.12);}
-    .modal-bg {
-      display: none; position: fixed; left: 0; top: 0; width:100vw; height:100vh;
-      background: rgba(0,0,0,0.35); z-index: 10; justify-content: center; align-items: center;
+    .brand-blue { color: #044080; }
+    .brand-orange { color: #fa4616; }
+    /* Stylish Menu */
+    .nav-menu {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      padding: 0.7rem 0 1.6rem;
+      flex-wrap: wrap;
     }
-    .modal {
-      background: #fff; border-radius: 8px; max-width: 470px; width: 92vw; padding: 2rem 1.2rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.17); position: relative;
-      max-height: 90vh; overflow-y: auto;
+    .nav-menu a {
+      color: #044080;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.04rem;
+      padding: 8px 20px;
+      border-radius: 25px;
+      background: #fff;
+      box-shadow: 0 2px 14px #04408011;
+      transition: background .13s, color .13s;
+      margin-bottom: 10px;
+      border: none;
     }
-    .modal h2 { margin-top: 0; color: #1b263b;}
-    .close { position: absolute; right: 1.2rem; top: 1.2rem; cursor: pointer; font-size: 1.5em; color: #666;}
-    .tools-list, .feature-list, .benefit-list { margin-left: 1rem; }
-    img.sketch, img.card-img { display:block; margin: 1rem auto; max-width: 85%; border-radius: 6px; box-shadow: 0 1px 6px #ccc;}
-    .card-img { max-height: 42px; margin-bottom: 0.7rem; margin-top: 0;}
-    .diagram-link {
-      display: block; text-align: center; margin: 1.6rem 0 .5rem 0; font-size: 1.1rem; color: #2153a2;
-      text-decoration: underline; font-weight: 500;
+    .nav-menu a.active,
+    .nav-menu a:hover {
+      background: #fa4616;
+      color: #fff;
     }
-    .proofs-list img { max-width: 93%; margin: 0.7rem auto; display: block;}
-    .field-report-img { max-width: 92%; margin: 0.7rem auto; border-radius: 4px;}
-    .caption { font-size: 0.95em; color: #384858; margin-top: 0.3em; text-align: center;}
-    @media (max-width:800px) { .cards{flex-direction:column;align-items:center;} .card{width:96vw;} }
+    /* Section styles */
+    .section {
+      display: none;
+      padding: 2.2rem 1.4rem 2.2rem 1.4rem;
+      max-width: 650px;
+      margin: 0 auto 2.5rem auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px #04408012;
+      min-height: 180px;
+      animation: fadein .22s;
+    }
+    @keyframes fadein {
+      0% { opacity: 0; transform: translateY(30px);}
+      100% { opacity:1; transform: none;}
+    }
+    .section.active { display: block; }
+    h2 { color: #044080; margin-top:0; }
+    .arch-img, .ui-preview-img {
+      width: 220px;
+      max-width:98%;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0002;
+      margin: 1.1rem auto 0 auto;
+      background:#f4f8fb;
+      display:block;
+    }
+    .section ul { margin-left:1rem; color:#34495e;}
+    .repo-link-btn {
+      display: inline-block;
+      background: #044080;
+      color: #fff !important;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+      margin: 18px auto 0 auto;
+      text-decoration: none;
+      box-shadow: 0 1px 8px #04408022;
+      transition: background 0.2s;
+    }
+    .repo-link-btn:hover { background: #fa4616; }
+    .proof-badge { display:inline-block; background:#fa4616; color:#fff; font-weight:bold; font-size:1em; border-radius:7px; padding:5px 15px; margin-bottom:11px;}
+    .typeform-thumb { width:180px; border-radius:10px; box-shadow:0 1px 10px #0001; margin:8px 0 0 0;}
+    .team-section {display:flex;align-items:center;gap:16px;margin-top:16px;}
+    .team-photo {width:58px;height:58px;border-radius:50%;background:#eee;}
+    .faq-q {font-weight:bold;margin-top:10px;}
+    @media (max-width: 800px) {
+      .section {max-width:98vw;padding:6vw 2vw;}
+      .nav-menu {gap:0.4rem;}
+      .arch-img, .ui-preview-img {width:95vw;max-width:99%;}
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <img src="image2" alt="PowerGridX Logo" class="logo">
-      <h1>PowerGridX</h1>
-    </div>
-    <div class="cards">
-      <div class="card" data-modal="meter">
-        <img src="https://via.placeholder.com/60x42?text=1" alt="" class="card-img">
-        <strong>1. Tamper-Resistant Smart Meter</strong>
-        <p>Secure, accurate metering with anti-theft, NFC, and user authentication.</p>
-      </div>
-      <div class="card" data-modal="pole">
-        <img src="https://via.placeholder.com/60x42?text=2" alt="" class="card-img">
-        <strong>2. Renewable Smart Pole</strong>
-        <p>Solar-powered relay pole with sensors, edge AI, and modular upgrades.</p>
-      </div>
-      <div class="card" data-modal="psn">
-        <img src="https://via.placeholder.com/60x42?text=3" alt="" class="card-img">
-        <strong>3. Passive Smart Node</strong>
-        <p>Low-cost IoT node for grid-edge monitoring and tamper detection.</p>
-      </div>
-      <div class="card" data-modal="impact">
-        <img src="https://via.placeholder.com/60x42?text=4" alt="" class="card-img">
-        <strong>4. Benefits & Impact</strong>
-        <p>Reduced losses, better reliability, predictive maintenance, and access.</p>
-      </div>
-      <div class="card" data-modal="ui">
-        <img src="https://via.placeholder.com/60x42?text=5" alt="" class="card-img">
-        <strong>5. User Interfaces</strong>
-        <p>Web dashboard, USSD for feature phones, and mobile app for all users.</p>
-      </div>
-      <div class="card" data-modal="field-report">
-        <img src="https://via.placeholder.com/60x42?text=6" alt="" class="card-img">
-        <strong>6. Visual Field Reports</strong>
-        <p>Photos, annotated maps, and on-site validation of PSN/pole deployment.</p>
-      </div>
-      <div class="card" data-modal="proofs">
-        <img src="https://via.placeholder.com/60x42?text=7" alt="" class="card-img">
-        <strong>7. Proofs of Intent</strong>
-        <p>Feedback, letters, and messages from 7+ interested users or partners.</p>
-      </div>
-    </div>
-    <a class="diagram-link" href="image1" target="_blank">View Full PowerGridX System Architecture Diagram</a>
+  <!-- Header -->
+  <div class="header-logo-text">
+    <img src="https://raw.githubusercontent.com/mensahsandra/pgx-demo/main/assets/images/PGX-Icon.svg" alt="PowerGridX Logo" class="logo-tight">
+    <span class="brand-text">
+      <span class="brand-blue">PowerGrid</span><span class="brand-orange">X</span>
+    </span>
   </div>
-  
-  <!-- Modals -->
-  <div class="modal-bg" id="modal-meter">
-    <div class="modal">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Tamper-Resistant Smart Meter</h2>
-      <ul class="feature-list">
-        <li>Anti-theft enclosure & tamper sensors</li>
-        <li>NFC/ID card authentication for contractors</li>
-        <li>Real-time usage & balance data</li>
-        <li>Supports prepaid/postpaid, USSD recharge</li>
-      </ul>
-      <b>Components/Tools:</b>
-      <ul class="tools-list">
-        <li>Microcontroller (ESP32/STM32)</li>
-        <li>ATM90E36/ADE7753 metering ICs</li>
-        <li>NFC card reader, anti-tamper sensor</li>
-        <li>LoRaWAN/NB-IoT/PLC module</li>
-      </ul>
-      <img class="sketch" src="https://via.placeholder.com/320x140?text=Smart+Meter+Sketch" alt="Smart Meter Sketch">
-    </div>
+  <!-- Stylish Navigation Menu -->
+  <nav class="nav-menu">
+    <a href="#" data-section="meter" class="active">Smart Meter</a>
+    <a href="#" data-section="poles">Smart Poles</a>
+    <a href="#" data-section="simulator">Simulator</a>
+    <a href="#" data-section="userappui">User App UI</a>
+    <a href="#" data-section="dashboard">Dashboard Sim</a>
+    <a href="#" data-section="pgxarch">PGX Architecture</a>
+    <a href="#" data-section="psnarch">PSN Architecture</a>
+    <a href="#" data-section="blockchain">Blockchain</a>
+    <a href="#" data-section="impact">Impact</a>
+    <a href="#" data-section="proofs">Proof of Intent</a>
+    <a href="#" data-section="about">About/FAQ</a>
+  </nav>
+  <!-- Sections -->
+  <div id="section-meter" class="section active">
+    <h2>Tamper-Resistant Smart Meter</h2>
+    <ul>
+      <li>Embedded tamper sensors</li>
+      <li>Transformer-authenticated pairing</li>
+      <li>LoRaWAN/Satellite connectivity</li>
+      <li>Secure top-up via USSD/app</li>
+      <li>Real-time monitoring to blockchain</li>
+    </ul>
+    <img src="https://raw.githubusercontent.com/mensahsandra/pgx-demo/main/assets/images/smart_meter_sketch.png" alt="Smart Meter Sketch" class="arch-img">
   </div>
-  <div class="modal-bg" id="modal-pole">
-    <div class="modal">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Renewable Smart Pole</h2>
-      <ul class="feature-list">
-        <li>Solar-powered energy relay hub</li>
-        <li>LoRaWAN/PLC/NB-IoT gateway</li>
-        <li>Environmental monitoring (temp, humidity, etc.)</li>
-        <li>Modular for lighting, security cameras, etc.</li>
-      </ul>
-      <b>Components/Tools:</b>
-      <ul class="tools-list">
-        <li>Solar panel & battery</li>
-        <li>Microcontroller (STM32/ESP32)</li>
-        <li>Sensor suite (temperature, motion, etc.)</li>
-        <li>LoRaWAN Gateway/Repeater</li>
-      </ul>
-      <img class="sketch" src="https://via.placeholder.com/320x140?text=Smart+Pole+Sketch" alt="Smart Pole Sketch">
-    </div>
+  <div id="section-poles" class="section">
+    <h2>Smart Poles</h2>
+    <ul>
+      <li>Solar + battery backup</li>
+      <li>Dual LED lighting</li>
+      <li>LoRa base node placement</li>
+      <li>Camera and Wi-Fi support</li>
+      <li>Optional mosquito-repelling tech</li>
+    </ul>
+    <img src="https://raw.githubusercontent.com/mensahsandra/pgx-demo/main/assets/images/smart_pole_sketch.png" alt="Smart Pole Sketch" class="arch-img">
   </div>
-  <div class="modal-bg" id="modal-psn">
-    <div class="modal">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Passive Smart Node (PSN)</h2>
-      <ul class="feature-list">
-        <li>Clamps onto existing pole or cable</li>
-        <li>Solar and/or line-powered</li>
-        <li>Edge AI for tamper/theft detection</li>
-        <li>Low-cost, easy retrofit</li>
-      </ul>
-      <b>Components/Tools:</b>
-      <ul class="tools-list">
-        <li>MSP430/ESP32 microcontroller</li>
-        <li>Tamper/vibration sensor, solar cell</li>
-        <li>LoRaWAN/PLC module</li>
-        <li>QR code asset tracking</li>
-      </ul>
-      <img class="sketch" src="https://via.placeholder.com/320x140?text=PSN+Sketch" alt="Passive Smart Node Sketch">
-    </div>
+  <div id="section-simulator" class="section">
+    <h2>Simulator Smart Meter</h2>
+    <div id="simulator-content"></div>
   </div>
-  <div class="modal-bg" id="modal-impact">
-    <div class="modal">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Benefits & Impact</h2>
-      <ul class="benefit-list">
-        <li>Reduces technical and non-technical losses (theft, tampering)</li>
-        <li>Enables predictive maintenance and rapid fault response</li>
-        <li>Improves grid reliability and energy access</li>
-        <li>Supports renewable integration and rural electrification</li>
-        <li>Empowers utilities and consumers with real-time data</li>
-      </ul>
-    </div>
-  </div>
-  <div class="modal-bg" id="modal-ui">
-    <div class="modal">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2>User Interfaces</h2>
-      <b>Contractor Dashboard:</b>
-      <ul>
-        <li>Secure web UI for authorized installers/maintenance</li>
-        <li>Logs, asset management, and task assignment</li>
-      </ul>
-      <b>USSD:</b>
-      <ul>
-        <li>Recharge and check balance with short codes (e.g., <code>*123#</code>)</li>
-        <li>No smartphone required</li>
-      </ul>
-      <b>Mobile App:</b>
-      <ul>
-        <li>Android/iOS app for usage, recharge, and notifications</li>
-        <li>Push alerts for outages or maintenance</li>
-      </ul>
-      <img class="sketch" src="https://via.placeholder.com/320x140?text=User+Interface+Sketch" alt="UI Sketch">
-    </div>
-  </div>
-  <div class="modal-bg" id="modal-field-report">
-    <div class="modal">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Visual Field Reports</h2>
-      <img src="image1" alt="Field Deployment" class="field-report-img">
-      <div class="caption">Full PowerGridX system architecture & field deployment concept</div>
-      <p>
-        See annotated field photos, deployment maps, and sample on-site reports for validation of PSN and smart pole installations.
-      </p>
-      <!-- Add more images or field report links as you gather real data -->
-    </div>
-  </div>
-  <div class="modal-bg" id="modal-proofs">
-    <div class="modal">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Proofs of Intent</h2>
-      <p>
-        Below are select proofs of interest and intent from potential users, partners, or early test sites. (Add your real screenshots, letters, or quotes here.)
-      </p>
-      <div class="proofs-list">
-        <img src="https://via.placeholder.com/320x120?text=Letter+of+Intent+1" alt="Proof of Intent 1">
-        <img src="https://via.placeholder.com/320x120?text=WhatsApp+Chat+Screenshot" alt="WhatsApp Screenshot">
-        <img src="https://via.placeholder.com/320x120?text=Testimonial+2" alt="Testimonial 2">
-        <img src="https://via.placeholder.com/320x120?text=Signed+Form+3" alt="Signed Form 3">
-        <img src="https://via.placeholder.com/320x120?text=Partner+Email+4" alt="Partner Email 4">
-        <img src="https://via.placeholder.com/320x120?text=End+User+Interest+5" alt="Interest 5">
-        <img src="https://via.placeholder.com/320x120?text=Video+Message+6" alt="Video Message 6">
-        <!-- Add more as needed -->
+  <div id="section-userappui" class="section">
+    <h2>User App Interface</h2>
+    <div style="display:flex;flex-direction:column;gap:18px;max-height:55vh;overflow-y:auto;">
+      <div style="text-align:center;">
+        <img src="assets/ui-login.png" alt="Login Screen" class="ui-preview-img">
+        <div style="font-size:.97em;color:#044080;margin-top:5px;">Login Screen</div>
+      </div>
+      <div style="text-align:center;">
+        <img src="assets/ui-signup.png" alt="Sign Up Screen" class="ui-preview-img">
+        <div style="font-size:.97em;color:#044080;margin-top:5px;">Sign Up Screen</div>
+      </div>
+      <div style="text-align:center;">
+        <img src="assets/ui-dashboard.png" alt="Dashboard" class="ui-preview-img">
+        <div style="font-size:.97em;color:#044080;margin-top:5px;">Dashboard</div>
+      </div>
+      <div style="text-align:center;">
+        <img src="assets/ui-buy.png" alt="Buy/Top Up" class="ui-preview-img">
+        <div style="font-size:.97em;color:#044080;margin-top:5px;">Buy / Top Up</div>
+      </div>
+      <div style="text-align:center;">
+        <img src="assets/ui-blockchain.png" alt="Blockchain Proof" class="ui-preview-img">
+        <div style="font-size:.97em;color:#044080;margin-top:5px;">Blockchain Proof</div>
       </div>
     </div>
+    <div style="margin-top:13px;font-size:.94em;color:#444;text-align:center;">
+      <i>All UI images are actual designs/mockups of the PGX user app.</i>
+    </div>
+    <div id="section-userappui" class="section">
+  <h2>User App Interface</h2>
+  <div id="user-app-ui-demo"></div>
+</div>
+    <div style="text-align:center;margin-top:16px;">
+      <a href="https://github.com/mensahsandra/pgx-app" target="_blank" class="repo-link-btn">
+        🔗 View Live App/Design Repository
+      </a>
+    </div>
   </div>
-
+  <div id="section-dashboard" class="section">
+    <h2>User Dashboard Simulator</h2>
+    <div id="pgx-dashboard"></div>
+  </div>
+  <div id="section-pgxarch" class="section">
+    <h2>PGX System Architecture</h2>
+    <p>The full PowerGridX system integrates smart meters, smart poles, PSNs, cloud backend, and blockchain. Data is securely relayed from meters and poles to the cloud and immutable blockchain, enabling real-time monitoring and secure top-up.</p>
+    <img src="https://raw.githubusercontent.com/mensahsandra/pgx-demo/main/assets/images/pgx_architecture.png" alt="PGX Architecture" class="arch-img">
+  </div>
+  <div id="section-psnarch" class="section">
+    <h2>PSN Architecture</h2>
+    <p>Passive Smart Nodes (PSNs) relay and extend LoRa signals, monitor environmental conditions, and provide coverage for even remote, off-grid communities.</p>
+    <img src="https://raw.githubusercontent.com/mensahsandra/pgx-demo/main/assets/images/psn_architecture.png" alt="PSN Architecture" class="arch-img">
+  </div>
+  <div id="section-blockchain" class="section">
+    <h2>Blockchain</h2>
+    <p>Every top-up or meter event is anchored on blockchain for transparency and auditability. This prevents tampering, ensures trust, and gives users proof of every transaction.</p>
+    <div style="margin:1.2em auto;text-align:center;">
+      <img src="assets/ui-blockchain.png" alt="Blockchain Proof" class="ui-preview-img">
+      <div style="font-size:.97em;color:#044080;margin-top:5px;">Sample Blockchain Receipt</div>
+    </div>
+    <div style="margin-top:10px;text-align:center;">
+      <a href="https://github.com/mensahsandra/pgx-app" target="_blank" class="repo-link-btn">View Blockchain Code/Integration</a>
+    </div>
+  </div>
+  <div id="section-impact" class="section">
+    <h2>Benefits & Impact</h2>
+    <ul>
+      <li>Theft reduction potential</li>
+      <li>Transparent billing</li>
+      <li>Reduced outages via faster alerts</li>
+      <li>Employment for trained contractors</li>
+      <li>Better service in rural areas</li>
+    </ul>
+  </div>
+  <div id="section-proofs" class="section">
+    <h2>Proof of Intent</h2>
+    <div class="proof-badge">Proofs are being received via Typeform</div>
+    <p>Real users, contractors, and partners are submitting their intent to participate in PGX pilots via Typeform.</p>
+    <img src="assets/typeform-thumb.png" alt="Typeform Responses Screenshot" class="typeform-thumb">
+    <div style="text-align:center;margin-top:13px;">
+      <a href="https://typeform.com/to/your-form-id" target="_blank" class="repo-link-btn">View Typeform (private)</a>
+    </div>
+  </div>
+  <div id="section-about" class="section">
+    <h2>About / FAQ</h2>
+    <div class="team-section">
+      <img src="assets/your-photo.jpg" alt="Your Photo" class="team-photo">
+      <div>
+        <div><b>Sandra Mensah</b></div>
+        <div>Founder & Engineer</div>
+        <div style="font-size:.97em;color:#555;">Built solo so far, no technical cofounder yet.<br>Passionate about energy access in Africa.</div>
+      </div>
+    </div>
+    <div class="faq-q">What is PowerGridX?</div>
+    <div>A next-generation grid monitoring and anti-tamper metering platform, built for Africa.</div>
+    <div class="faq-q">How is it different?</div>
+    <div>Combines secure hardware, blockchain, and low-cost IoT for rural/urban grid reliability.</div>
+    <div class="faq-q">What’s next?</div>
+    <div>Physical prototype, field pilot, more partnerships. Contact me to join or support!</div>
+  </div>
+  <!-- JS for navigation and simulators -->
   <script>
-    // Modal logic
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('click', () => {
-        document.getElementById('modal-' + card.dataset.modal).style.display = 'flex';
-      });
+    // Navigation logic
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.onclick = function(e) {
+        e.preventDefault();
+        // Remove active from all
+        document.querySelectorAll('.nav-menu a').forEach(l=>l.classList.remove('active'));
+        document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+        // Add active to selected
+        this.classList.add('active');
+        document.getElementById('section-' + this.dataset.section).classList.add('active');
+        // If simulator or dashboard, render content live:
+        if(this.dataset.section === "simulator") renderSimulator();
+        if(this.dataset.section === "dashboard") renderPGXDashboard(user);
+        window.scrollTo({top:0,behavior:"smooth"});
+      };
     });
-    function closeModal() {
-      document.querySelectorAll('.modal-bg').forEach(m => m.style.display='none');
+    // Simulator Smart Meter
+    function renderSimulator() {
+      const devices = [
+        { name: "Bulb", voltage: 60, isOn: true },
+        { name: "Fan", voltage: 75, isOn: false },
+        { name: "TV", voltage: 120, isOn: false },
+        { name: "Fridge", voltage: 200, isOn: false }
+      ];
+      let log = [];
+      const root = document.getElementById('simulator-content');
+      root.innerHTML = '';
+      function redraw() {
+        const total = devices.filter(d => d.isOn).reduce((sum, d) => sum + d.voltage, 0);
+        root.innerHTML = `
+          <table style="width:100%;margin-bottom:1em;">
+            <thead>
+              <tr>
+                <th>Device</th>
+                <th>Voltage (W)</th>
+                <th>On/Off</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${devices.map((d, i) => `
+                <tr>
+                  <td>${d.name}</td>
+                  <td>${d.voltage}</td>
+                  <td><input type="checkbox" id="cb${i}" ${d.isOn?'checked':''}></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+          <div style="margin-bottom:12px;">
+            <b>Total Voltage Used:</b> <span id="total">${total}</span> W
+          </div>
+          <button id="simSend" style="background:#fa4616;color:#fff;border:none;
+            border-radius:6px;padding:8px 18px;font-weight:bold;cursor:pointer;">
+            Send Reading (LoRa + Cloud)
+          </button>
+          <div style="margin-top:18px;font-size:12px;color:#333;">
+            <b>Transmission Log:</b>
+            <pre style="background:#f4f8fb;padding:8px;border-radius:6px;
+            max-height:140px;overflow-y:auto;" id="simLog">${log.join('\n\n')}</pre>
+          </div>
+        `;
+        devices.forEach((d, i) => {
+          document.getElementById('cb'+i).onchange = () => {
+            d.isOn = !d.isOn;
+            redraw();
+          };
+        });
+        document.getElementById('simSend').onclick = () => {
+          const timestamp = new Date().toISOString();
+          const active = devices.filter(d => d.isOn);
+          const payload = {
+            meterId: "SIM-001",
+            timestamp,
+            devices: active.map(d => ({ name: d.name, voltage: d.voltage })),
+            totalVoltage: active.reduce((s, d) => s+d.voltage, 0),
+            sentVia: ["LoRa", "Cloud"]
+          };
+          log.unshift("Sent: " + JSON.stringify(payload, null, 2));
+          if (log.length > 8) log = log.slice(0,8);
+          redraw();
+        };
+      }
+      redraw();
     }
-    window.onclick = function(event) {
-      document.querySelectorAll('.modal-bg').forEach(m => {
-        if (event.target === m) m.style.display='none';
-      });
+    // User Dashboard Simulator
+    const user = {
+      name: "Sandra Mensah",
+      meterNo: "001234",
+      poleNo: "P-001",
+      appliances: [
+        { name: "Fridge", isOn: true, voltage: 200 },
+        { name: "Fan", isOn: false, voltage: 0 },
+        { name: "TV", isOn: true, voltage: 120 },
+        { name: "Bulb", isOn: true, voltage: 60 },
+      ],
+      voltage: 220,
+      current: 4,
+      power: 880,
+      loads: 3,
+      connections: {
+        meter: true,
+        pole: true,
+        transformer: true,
+        cloud: true,
+      }
+    };
+    function renderPGXDashboard(user) {
+      const onCount = user.appliances.filter(a => a.isOn).length;
+      const connSteps = [
+        { key: 'meter', label: 'Meter' },
+        { key: 'pole', label: 'Pole' },
+        { key: 'transformer', label: 'Transformer' },
+        { key: 'cloud', label: 'Cloud' }
+      ];
+      document.getElementById('pgx-dashboard').innerHTML = `
+        <div class="dashboard-sim">
+          <div class="dash-header">
+            <div class="big">${user.name}</div>
+            <div class="idline">
+              Meter: <b>${user.meterNo}</b> &nbsp; | &nbsp; Pole: <b>${user.poleNo}</b>
+            </div>
+          </div>
+          <div class="live-row">
+            <div>Voltage: <b>${user.voltage}V</b></div>
+            <div>Current: <b>${user.current}A</b></div>
+          </div>
+          <div class="live-row">
+            <div>Power: <b>${user.power}W</b></div>
+            <div>Loads: <b>${onCount}</b></div>
+          </div>
+          <div class="appliance-block">
+            <div style="font-weight:bold; margin-bottom:7px;">
+              Appliances Detected:
+            </div>
+            ${user.appliances.map(a => `
+              <div class="row">
+                <span class="appliance-title">${a.name}</span>
+                <span class="${a.isOn ? "appliance-on" : "appliance-off"}">${a.isOn ? "ON" : "OFF"}</span>
+                <span>${a.isOn ? (a.voltage + "V") : ""}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div class="connections">
+            ${connSteps.map((step, i) => `
+              <div class="conn-node">
+                <div class="conn-dot ${user.connections[step.key] ? "active" : "inactive"}">
+                  ${user.connections[step.key] ? "✓" : "!"}
+                </div>
+                <div class="conn-label">${step.label}</div>
+              </div>
+              ${i < connSteps.length - 1 ? '<span class="conn-arrow">&#8594;</span>' : ''}
+            `).join('')}
+          </div>
+        </div>
+      `;
     }
   </script>
+  <script>
+// Demo users for login/signup
+const DEMO_USERS = [
+  { username: "user1", password: "pass1" },
+  { username: "user2", password: "pass2" }
+];
+let currentUser = null;
+
+// Render function to show a page
+function renderUserAppUI(page) {
+  const root = document.getElementById('user-app-ui-demo');
+  if(page === "login") {
+    root.innerHTML = `
+      <div class="centered-box" style="max-width:340px;margin:30px auto;">
+        <div class="login-title">Sign In</div>
+        <form id="login-form" autocomplete="off">
+          <label for="user">Username</label>
+          <input type="text" id="user" autocomplete="username" required>
+          <label for="pass">Password</label>
+          <input type="password" id="pass" autocomplete="current-password" required>
+          <button type="submit" class="login-btn">Login</button>
+          <div class="login-error" id="login-error"></div>
+        </form>
+        <div style="margin-top:1em;font-size:.98em;">
+          <a href="#" id="go-signup">No account? Sign up</a>
+        </div>
+      </div>
+    `;
+    document.getElementById('login-form').onsubmit = function(e) {
+      e.preventDefault();
+      const user = document.getElementById('user').value.trim();
+      const pass = document.getElementById('pass').value;
+      const found = DEMO_USERS.find(u => u.username === user && u.password === pass);
+      if(found) {
+        currentUser = found;
+        renderUserAppUI("dashboard");
+      } else {
+        document.getElementById('login-error').innerText = "Invalid username or password.";
+      }
+    };
+    document.getElementById('go-signup').onclick = function(e) {
+      e.preventDefault();
+      renderUserAppUI("signup");
+    };
+  }
+  else if(page === "signup") {
+    root.innerHTML = `
+      <div class="centered-box" style="max-width:340px;margin:30px auto;">
+        <div class="login-title">Sign Up</div>
+        <form id="signup-form" autocomplete="off">
+          <label for="newuser">Username</label>
+          <input type="text" id="newuser" required>
+          <label for="newpass">Password</label>
+          <input type="password" id="newpass" required>
+          <button type="submit" class="login-btn">Create Account</button>
+          <div class="login-error" id="signup-error"></div>
+        </form>
+        <div style="margin-top:1em;font-size:.98em;">
+          <a href="#" id="go-login">Already have an account? Login</a>
+        </div>
+      </div>
+    `;
+    document.getElementById('signup-form').onsubmit = function(e) {
+      e.preventDefault();
+      const newuser = document.getElementById('newuser').value.trim();
+      const newpass = document.getElementById('newpass').value;
+      if(!newuser || !newpass) {
+        document.getElementById('signup-error').innerText = "All fields required.";
+        return;
+      }
+      if(DEMO_USERS.find(u => u.username === newuser)) {
+        document.getElementById('signup-error').innerText = "Username already exists.";
+        return;
+      }
+      DEMO_USERS.push({ username: newuser, password: newpass });
+      currentUser = { username: newuser, password: newpass };
+      renderUserAppUI("dashboard");
+    };
+    document.getElementById('go-login').onclick = function(e) {
+      e.preventDefault();
+      renderUserAppUI("login");
+    };
+  }
+  else if(page === "dashboard") {
+    root.innerHTML = `
+      <div class="centered-box" style="max-width:420px;margin:30px auto;">
+        <div class="login-title">Dashboard</div>
+        <div style="margin:1.2em 0;font-size:1.1em;">
+          Welcome, <b>${currentUser ? currentUser.username : 'User'}</b>!
+        </div>
+        <div style="margin-bottom:1.8em;">
+          <button class="login-btn" id="goto-topup" style="width:80%;">Top Up</button>
+        </div>
+        <button class="login-btn" id="logout-btn" style="background:#044080;width:80%;">Log Out</button>
+      </div>
+    `;
+    document.getElementById('goto-topup').onclick = function() {
+      renderUserAppUI("topup");
+    };
+    document.getElementById('logout-btn').onclick = function() {
+      currentUser = null;
+      renderUserAppUI("login");
+    };
+  }
+  else if(page === "topup") {
+    root.innerHTML = `
+      <div class="centered-box" style="max-width:340px;margin:30px auto;">
+        <div class="login-title">Top Up</div>
+        <form id="topup-form" autocomplete="off">
+          <label for="amount">Amount (GHS)</label>
+          <input type="number" id="amount" min="1" required>
+          <button type="submit" class="login-btn">Pay</button>
+          <div class="login-error" id="topup-error"></div>
+        </form>
+        <div style="margin-top:1em;">
+          <a href="#" id="back-dashboard">Back to Dashboard</a>
+        </div>
+      </div>
+    `;
+    document.getElementById('topup-form').onsubmit = function(e) {
+      e.preventDefault();
+      const amt = document.getElementById('amount').value;
+      if(amt < 1) {
+        document.getElementById('topup-error').innerText = "Please enter a valid amount.";
+        return;
+      }
+      // For demo, just show a "success"
+      root.innerHTML = `
+        <div class="centered-box" style="max-width:340px;margin:30px auto;">
+          <div class="login-title">Top Up Successful</div>
+          <div style="margin:1.2em 0;font-size:1.05em;">Thank you, <b>${currentUser ? currentUser.username : 'User'}</b>.<br>
+          Your account has been topped up with <b>GHS ${amt}</b>.</div>
+          <button class="login-btn" id="back-to-dash" style="width:80%;">Back to Dashboard</button>
+        </div>
+      `;
+      document.getElementById('back-to-dash').onclick = function() {
+        renderUserAppUI("dashboard");
+      };
+    };
+    document.getElementById('back-dashboard').onclick = function(e) {
+      e.preventDefault();
+      renderUserAppUI("dashboard");
+    };
+  }
+}
+
+// Always render login by default when User App UI is shown
+document.querySelector('[data-section="userappui"]').addEventListener('click', function() {
+  renderUserAppUI("login");
+});
+
+// Optionally, render login when page loads if User App UI is initially visible
+if(document.getElementById('section-userappui').classList.contains('active')) {
+  renderUserAppUI("login");
+}
+</script>
 </body>
 </html>

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PowerGridX (PGX) UI Flow</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pgx-dark: #2e3e4e;
+      --pgx-blue: #044080;
+      --pgx-accent: #fa4616;
+      --pgx-light: #eef3f7;
+      --pgx-bg: #f8fafc;
+      --pgx-card: #ffffff;
+      --pgx-gray: #cfd9e2;
+      --pgx-green: #008e5a;
+      --pgx-shadow: 0 6px 24px 0 rgba(34, 139, 134, 0.08);
+      --pgx-navy: #021a34;
+    }
+    html,body {
+      margin:0; padding:0; background:var(--pgx-bg);
+      font-family:'Inter',Arial,sans-serif; color:var(--pgx-dark);
+    }
+    #app {
+      min-height:100vh; display:flex; flex-direction:column;
+      justify-content:center; align-items:center;
+    }
+    .container {
+      width: 100%; max-width: 440px; background:var(--pgx-card);
+      border-radius:18px; box-shadow:var(--pgx-shadow);
+      padding:32px 32px 24px 32px; margin:24px 0; position:relative;
+      box-sizing: border-box;
+      display:flex; flex-direction:column; gap:22px;
+    }
+    .logo {
+      display: flex; align-items: center; justify-content:center; gap:15px;
+      margin-bottom:8px;
+      width: 100%;
+    }
+    .logo img { height:55px; width:auto; display:block; }
+    .logo span { font-size:2.1rem; font-weight:600; color:var(--pgx-blue);}
+    .logo .accent { color:var(--pgx-accent);}
+    .screen-title {
+      text-align:center; font-size:1.3rem; font-weight:600; color:var(--pgx-blue);
+      margin-bottom:8px;
+    }
+    .input-group { margin-bottom:15px; }
+    label { font-size:1.01rem; font-weight:500; margin-bottom:4px; display:block; }
+    input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding:10px 12px;
+      border:1.5px solid var(--pgx-gray); border-radius:7px;
+      background:var(--pgx-light); font-size:1rem; transition: border 0.18s;
+      margin-bottom:2px;
+      outline: none;
+      display: block;
+    }
+    input:focus { border:1.5px solid var(--pgx-blue); }
+    .btn {
+      width:100%; padding:12px 0; border:none; border-radius:8px;
+      background:linear-gradient(90deg, var(--pgx-blue), var(--pgx-navy));
+      color:#fff; font-size:1.09rem; font-weight:600; cursor:pointer; margin-top:4px; transition: background 0.2s;
+    }
+    .btn:hover { background:linear-gradient(90deg, var(--pgx-navy), var(--pgx-blue)); }
+    .link, .switch-link {
+      background:none; border:none; cursor:pointer; color:var(--pgx-blue);
+      text-align:right; font-size:0.97rem; text-decoration:underline; margin-top:6px;
+      padding:0;
+    }
+    .switch-link { text-align:center; }
+    .mobile-auth { display:flex; gap:12px; margin-top:-8px; justify-content:center; }
+    .mobile-auth .auth-btn {
+      border:none; background:var(--pgx-light); color:var(--pgx-blue); padding:8px 14px;
+      border-radius:7px; font-weight:600; font-size:0.97rem; cursor:pointer; display:flex; align-items:center; gap:5px;
+      transition:background .17s;
+    }
+    .mobile-auth .auth-btn:hover { background:var(--pgx-gray);}
+    .divider { border-top:1px solid var(--pgx-gray); margin:12px 0 5px 0;}
+    .dashboard { display:flex; flex-direction:column; gap:17px; }
+    .meter-status {
+      display:flex; align-items:center; gap:8px; font-weight:600;
+      color:var(--pgx-green); margin-bottom:3px;
+    }
+    .meter-status.disconnected { color:var(--pgx-accent);}
+    .status-dot {
+      width:13px; height:13px; border-radius:50%; display:inline-block;
+      background:var(--pgx-green); margin-right:3px;
+    }
+    .meter-status.disconnected .status-dot { background:var(--pgx-accent);}
+    .dashboard-cards {
+      display:flex; gap:10px; justify-content:space-between; margin-bottom:1px;
+    }
+    .dashboard-card {
+      flex:1 1 0; background:var(--pgx-light); border-radius:9px;
+      padding:13px 10px 10px 10px; text-align:center; box-shadow:0 1px 4px rgba(4,64,128,0.06);
+    }
+    .dashboard-card .label { font-size:0.93rem; color:#6a7b8a; margin-bottom:2px;}
+    .dashboard-card .value { font-size:1.15rem; font-weight:600; color:var(--pgx-blue);}
+    .credit-balance {
+      text-align:right; font-size:1.05rem; font-weight:600; color:var(--pgx-accent); margin-bottom:3px;
+    }
+    .usage-bar-wrap { margin:8px 0 0 0;}
+    .usage-bar-label { font-size:0.98rem; color:var(--pgx-dark);}
+    .usage-bar-bg {
+      background:var(--pgx-gray); border-radius:8px; width:100%; height:11px; margin-top:3px; position:relative;
+    }
+    .usage-bar-fill {
+      background:linear-gradient(90deg, var(--pgx-blue), var(--pgx-accent));
+      border-radius:8px; height:11px; width:70%; /* JS sets width */
+      transition:width 0.5s;
+    }
+    .power-usage-card {
+      background:var(--pgx-light); border-radius:9px; padding:13px 10px 10px 10px; margin-bottom:2px;
+    }
+    .power-usage-chart-label {
+      display:flex; justify-content:space-between; align-items:center; font-size:0.97rem; font-weight:600; color:var(--pgx-blue); margin-bottom:5px;
+    }
+    .power-usage-bars { display:flex; align-items:end; gap:6px; height:52px; margin-top:5px;}
+    .power-bar {
+      width:15px; border-radius:5px 5px 0 0; background:var(--pgx-blue); transition:height 0.4s;
+      background:linear-gradient(180deg, var(--pgx-blue) 60%, var(--pgx-accent) 100%);
+    }
+    .power-bar.light { background:var(--pgx-gray);}
+    .appliances, .transactions {
+      background:var(--pgx-light); border-radius:8px; padding:9px 12px; margin-bottom:2px;
+    }
+    .appliances-title, .transactions-title {
+      font-size:1.01rem; font-weight:600; color:var(--pgx-blue); margin-bottom:5px;
+    }
+    .appliance-list, .transaction-list {
+      margin:0 0 0 8px; padding:0; list-style:disc; font-size:0.97rem;
+    }
+    .dashboard-actions {
+      display:flex; gap:10px; margin-top:4px;
+    }
+    .dashboard-actions .btn {
+      flex:1 1 0; font-size:0.98rem; padding:9px 0;
+      background:linear-gradient(90deg, var(--pgx-blue), var(--pgx-green));
+    }
+    .buy-form { display:flex; flex-direction:column; gap:12px;}
+    .pay-options { display:flex; gap:10px; flex-wrap:wrap;}
+    .pay-option {
+      flex:1 1 120px; background:var(--pgx-light); border-radius:7px; padding:9px 6px;
+      text-align:center; font-size:0.99rem; cursor:pointer; border:2px solid transparent;
+      transition:border 0.18s; color:var(--pgx-blue);
+      display:flex; align-items:center; justify-content:center; gap:6px;
+    }
+    .pay-option.selected { border:2px solid var(--pgx-blue); background:#e4eef7;}
+    .ussd, .qr-code, .success-msg {
+      text-align:center; margin-top:15px; margin-bottom:0;
+      font-size:1.09rem; color:var(--pgx-blue);
+    }
+    .success-msg { color: var(--pgx-green); font-weight:600;}
+    .error-msg {
+      color: var(--pgx-accent);
+      font-size: 0.98rem;
+      text-align: center;
+      margin-top: -10px;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    @media (max-width: 500px) {
+      .container { max-width:98vw; padding:22px 4vw;}
+      .dashboard-cards { flex-direction:column; gap:10px;}
+      .dashboard-actions { flex-direction:column; gap:7px;}
+      .pay-options { flex-direction:column; gap:8px;}
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    // Images (replace with your own URLs if needed)
+    const logoUrl = 'image1'; // ![image1](image1)
+
+    // "Fake backend" user data (simulate a DB)
+    const fakeUsers = [
+      {
+        username: "john.doe",
+        password: "test1234",
+        name: "John Doe",
+        meter: "MTR123456",
+        pole: "PL1001",
+        gps: "5.6037, -0.1870",
+        idcard: "GHA-123456789",
+        tel: "+233541234567"
+      },
+      {
+        username: "sandra.k",
+        password: "pass5678",
+        name: "Sandra K",
+        meter: "MTR234567",
+        pole: "PL2002",
+        gps: "5.5614, -0.1969",
+        idcard: "GHA-876543210",
+        tel: "+233502223334"
+      }
+    ];
+
+    // App State
+    let state = {
+      screen: 'login', // login, signup, dashboard, buy
+      meterStatus: 'Connected', // or 'Disconnected'
+      voltage: 230, current: 5.2, power: 1200,
+      appliances: ['Air Conditioner', 'Fridge', 'Ceiling Light'],
+      transactions: [
+        { desc: 'Top Up', amount: 50, date: '2025-06-07' },
+        { desc: 'Top Up', amount: 100, date: '2025-06-05' },
+        { desc: 'Fault Reported', amount: 0, date: '2025-06-03' }
+      ],
+      balance: 145.50,
+      powerUsage: [30, 45, 38, 65, 50, 42], // Example for usage bar chart
+      usagePercent: 70, // For usage bar
+      buyAmount: '',
+      selectedPay: '',
+      ussdCode: '*123#',
+      showQR: false,
+      buySuccess: false,
+      error: "",
+      loggedInUser: null
+    };
+
+    // Utility
+    function el(html) {
+      const t = document.createElement('template');
+      t.innerHTML = html.trim();
+      return t.content.firstChild;
+    }
+    function setScreen(screen) {
+      state.screen = screen;
+      state.buyAmount = '';
+      state.selectedPay = '';
+      state.buySuccess = false;
+      state.error = '';
+      render();
+    }
+    // LOGO without the 021a34 code
+    function renderLogo() {
+      return `
+        <div class="logo">
+          <img src="${logoUrl}" alt="PowerGridX logo" />
+          <span>PowerGrid<span class="accent">X</span></span>
+        </div>
+      `;
+    }
+
+    // Login Screen
+    function renderLogin() {
+      return `
+        ${renderLogo()}
+        <div class="screen-title">Sign In</div>
+        <form id="login-form">
+          <div class="input-group">
+            <label for="login-username">Username / Phone / Email</label>
+            <input type="text" id="login-username" required autocomplete="username"/>
+          </div>
+          <div class="input-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required autocomplete="current-password"/>
+          </div>
+          <div class="input-group">
+            <label for="login-meter">Meter Number <span style="color:var(--pgx-gray);font-weight:400;font-size:.92em;">(optional)</span></label>
+            <input type="text" id="login-meter" autocomplete="off"/>
+          </div>
+          <button type="submit" class="btn">Sign In</button>
+        </form>
+        ${state.error ? `<div class="error-msg">${state.error}</div>` : ""}
+        <button class="link" onclick="alert('Reset link sent!')">Forgot Password?</button>
+        <div class="divider"></div>
+        <div class="mobile-auth">
+          <button class="auth-btn" onclick="alert('Biometric Login Coming Soon')">
+            <span style="font-size:1.1em;">🔒</span> Biometric Login
+          </button>
+          <button class="auth-btn" onclick="alert('SMS Login Coming Soon')">
+            <span style="font-size:1.1em;">📱</span> SMS Login
+          </button>
+        </div>
+        <button class="switch-link" onclick="setScreen('signup')">Don't have an account? Sign Up</button>
+      `;
+    }
+
+    // Sign Up Screen
+    function renderSignup() {
+      return `
+        ${renderLogo()}
+        <div class="screen-title">Create Your Account</div>
+        <form id="signup-form">
+          <div class="input-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" required autocomplete="name"/>
+          </div>
+          <div class="input-group">
+            <label for="signup-contact">Phone or Email</label>
+            <input type="text" id="signup-contact" required autocomplete="email"/>
+          </div>
+          <div class="input-group">
+            <label for="signup-meter">Meter Number</label>
+            <input type="text" id="signup-meter" required autocomplete="off"/>
+          </div>
+          <div class="input-group">
+            <label for="signup-pole">Pole Number</label>
+            <input type="text" id="signup-pole" required autocomplete="off"/>
+          </div>
+          <div class="input-group">
+            <label for="signup-gps">GPS</label>
+            <input type="text" id="signup-gps" required autocomplete="off"/>
+          </div>
+          <div class="input-group">
+            <label for="signup-idcard">ID Card</label>
+            <input type="text" id="signup-idcard" required autocomplete="off"/>
+          </div>
+          <div class="input-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" required autocomplete="new-password"/>
+          </div>
+          <div class="input-group">
+            <label for="signup-confirm">Confirm Password</label>
+            <input type="password" id="signup-confirm" required autocomplete="new-password"/>
+          </div>
+          <button type="submit" class="btn">Create Account</button>
+        </form>
+        ${state.error ? `<div class="error-msg">${state.error}</div>` : ""}
+        <button class="switch-link" onclick="setScreen('login')">Already have an account? Login</button>
+      `;
+    }
+
+    // Dashboard
+    function renderDashboard() {
+      const meterStatus = state.meterStatus;
+      const statusClass = meterStatus === 'Connected' ? '' : 'disconnected';
+      let powerBars = state.powerUsage.map((val, i) => {
+        let max = Math.max(...state.powerUsage, 1);
+        let h = Math.round(34 + 18 * (val / max));
+        return `<div class="power-bar${val < max ? ' light' : ''}" style="height:${h}px"></div>`;
+      }).join('');
+      let credentials = '';
+      if (state.loggedInUser) {
+        const u = state.loggedInUser;
+        credentials = `
+        <div style="background:var(--pgx-light);border-radius:7px;padding:9px 12px;font-size:.98em;margin-bottom:10px;">
+          <b>Your Details:</b><br>
+          Name: ${u.name}<br>
+          Meter #: ${u.meter}<br>
+          Pole #: ${u.pole}<br>
+          GPS: ${u.gps}<br>
+          ID Card: ${u.idcard}<br>
+          Telephone: ${u.tel}
+        </div>
+        `;
+      }
+      return `
+        ${renderLogo()}
+        ${credentials}
+        <div class="dashboard">
+          <div class="meter-status ${statusClass}">
+            <span class="status-dot"></span>
+            Meter Status: ${meterStatus}
+          </div>
+          <div class="dashboard-cards">
+            <div class="dashboard-card">
+              <div class="label">Voltage</div>
+              <div class="value">${state.voltage} V</div>
+            </div>
+            <div class="dashboard-card">
+              <div class="label">Current</div>
+              <div class="value">${state.current} A</div>
+            </div>
+            <div class="dashboard-card">
+              <div class="label">Power</div>
+              <div class="value">${state.power} W</div>
+            </div>
+          </div>
+          <div class="usage-bar-wrap">
+            <div class="usage-bar-label">Power Usage</div>
+            <div class="usage-bar-bg">
+              <div class="usage-bar-fill" style="width:${state.usagePercent}%;"></div>
+            </div>
+          </div>
+          <div class="power-usage-card">
+            <div class="power-usage-chart-label">
+              <span>Power Usage</span>
+              <span style="font-size:0.93em;font-weight:500;color:#7a8db0;">Today</span>
+            </div>
+            <div class="power-usage-bars">${powerBars}</div>
+          </div>
+          <div class="credit-balance">Balance: GHS ${state.balance.toFixed(2)}</div>
+          <div class="appliances">
+            <div class="appliances-title">Appliances in Use</div>
+            <ul class="appliance-list">
+              ${state.appliances.map(a => `<li>${a}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="transactions">
+            <div class="transactions-title">Recent Transactions</div>
+            <ul class="transaction-list">
+              ${state.transactions.map(t =>
+                `<li>${t.date} - ${t.desc} ${t.amount ? 'GHS ' + t.amount : ''}</li>`
+              ).join('')}
+            </ul>
+          </div>
+          <div class="dashboard-actions">
+            <button class="btn" onclick="setScreen('buy')">Buy Credit</button>
+            <button class="btn" onclick="alert('Fault reporting coming soon!')">Report Fault</button>
+            <button class="btn" onclick="alert('Analytics coming soon!')">Energy Usage Analytics</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Buy/Top Up
+    function renderBuy() {
+      const payOpts = [
+        { value:'mtn', label:'MTN MoMo', icon:'📱' },
+        { value:'airtel', label:'AirtelTigo', icon:'📱' },
+        { value:'vodafone', label:'Vodafone Cash', icon:'📱' },
+        { value:'visa', label:'Visa/Mastercard', icon:'💳' }
+      ];
+      return `
+        ${renderLogo()}
+        <div class="screen-title">Top Up / Buy Credit</div>
+        <form id="buy-form" class="buy-form">
+          <div class="input-group">
+            <label for="buy-amount">Amount (GHS)</label>
+            <input type="number" id="buy-amount" min="1" required value="${state.buyAmount}" autocomplete="off"/>
+          </div>
+          <div class="input-group">
+            <label>Payment Option</label>
+            <div class="pay-options">
+              ${payOpts.map(opt =>
+                `<div class="pay-option${state.selectedPay===opt.value?' selected':''}"
+                  onclick="selectPay('${opt.value}')">${opt.icon} ${opt.label}</div>`).join('')}
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:2px;">
+            <button type="button" class="btn" style="background:var(--pgx-blue);"
+              onclick="showUSSD()">Use USSD</button>
+            <button type="button" class="btn" style="background:var(--pgx-accent);"
+              onclick="showQR()">Show QR</button>
+          </div>
+          <button type="submit" class="btn">Confirm & Pay</button>
+        </form>
+        ${state.showQR ? `<div class="qr-code">[QR Code for payment would appear here]</div>` : ''}
+        ${state.ussdCode && !state.buySuccess && !state.showQR ? `<div class="ussd">Dial <b>${state.ussdCode}</b> on your phone to pay</div>` : ''}
+        ${state.buySuccess ? `<div class="success-msg">Payment Successful! Credit added.</div>` : ''}
+        <button class="switch-link" onclick="setScreen('dashboard')">Back to Dashboard</button>
+      `;
+    }
+
+    // Logic for interactivity
+    window.setScreen = setScreen;
+    window.selectPay = function(pay) {
+      state.selectedPay = pay;
+      render();
+    };
+    window.showUSSD = function() {
+      state.ussdCode = '*123#';
+      state.showQR = false;
+      render();
+    };
+    window.showQR = function() {
+      state.showQR = true;
+      render();
+    };
+
+    // "Fake backend" login
+    function fakeLogin(username, password, meter) {
+      let u = fakeUsers.find(
+        user =>
+          (user.username === username || user.tel === username) &&
+          user.password === password &&
+          (!meter || user.meter === meter)
+      );
+      if (!u) return null;
+      return u;
+    }
+
+    // "Fake backend" signup
+    function fakeSignup(userObj) {
+      // Check username or meter or tel already exists
+      if (fakeUsers.find(u => u.username === userObj.username || u.meter === userObj.meter || u.tel === userObj.tel))
+        return { error: "Account with this username, meter or telephone already exists." };
+      fakeUsers.push(userObj);
+      return { ok: true };
+    }
+
+    // Main Render
+    function render() {
+      const app = document.getElementById('app');
+      let html = '';
+      switch(state.screen) {
+        case 'login': html = renderLogin(); break;
+        case 'signup': html = renderSignup(); break;
+        case 'dashboard': html = renderDashboard(); break;
+        case 'buy': html = renderBuy(); break;
+      }
+      app.innerHTML = `<div class="container">${html}</div>`;
+      attachEvents();
+    }
+
+    // Attach events per screen
+    function attachEvents() {
+      if (state.screen === 'login') {
+        document.getElementById('login-form').onsubmit = e => {
+          e.preventDefault();
+          const username = document.getElementById('login-username').value.trim();
+          const password = document.getElementById('login-password').value.trim();
+          const meter = document.getElementById('login-meter').value.trim();
+          const user = fakeLogin(username, password, meter);
+          if (user) {
+            state.loggedInUser = user;
+            state.error = "";
+            setScreen('dashboard');
+          } else {
+            state.error = "Invalid credentials. Try again.";
+            render();
+          }
+        };
+      }
+      if (state.screen === 'signup') {
+        document.getElementById('signup-form').onsubmit = e => {
+          e.preventDefault();
+          const name = document.getElementById('signup-name').value.trim();
+          const contact = document.getElementById('signup-contact').value.trim();
+          const meter = document.getElementById('signup-meter').value.trim();
+          const pole = document.getElementById('signup-pole').value.trim();
+          const gps = document.getElementById('signup-gps').value.trim();
+          const idcard = document.getElementById('signup-idcard').value.trim();
+          const password = document.getElementById('signup-password').value.trim();
+          const confirm = document.getElementById('signup-confirm').value.trim();
+
+          if (password !== confirm) {
+            state.error = "Passwords do not match.";
+            render();
+            return;
+          }
+          let username = contact.includes("@") ? contact.split("@")[0] : contact;
+          let tel = contact.match(/^\+233\d{9}$/) ? contact : "";
+          let userObj = { username, password, name, meter, pole, gps, idcard, tel: tel || "" };
+          let { error } = fakeSignup(userObj);
+          if (error) {
+            state.error = error;
+            render();
+            return;
+          }
+          state.error = "";
+          state.loggedInUser = userObj;
+          setScreen('dashboard');
+        };
+      }
+      if (state.screen === 'buy') {
+        document.getElementById('buy-form').onsubmit = e => {
+          e.preventDefault();
+          state.buySuccess = true;
+          render();
+        };
+        document.getElementById('buy-amount').oninput = e => {
+          state.buyAmount = e.target.value;
+        };
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
