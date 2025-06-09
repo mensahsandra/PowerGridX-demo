@@ -10,7 +10,7 @@ This repo contains:
 3. **Passive Smart Node** – Low power LoRa relay for legacy pole upgrade
 # Small solar powered node installed on existing poles and power lines. It monitors voltage, current and line activity in real time. Sends data via LoRa to cloud.
 
-#Why Passive Smart Nodes Matters
+# Why Passive Smart Nodes Matters
 PSNs matter because they help prevent electricity theft by upgrading existing power grids without needing to replace everything.
 They're designed to detect illegal tapping, a common method of theft, between the transformer and the meter, where much of the theft happens.
 
