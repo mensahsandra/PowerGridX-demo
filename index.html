@@ -212,7 +212,16 @@
   <div id="section-pgxarch" class="section">
     <h2>PGX System Architecture</h2>
     <p>The full PowerGridX system integrates smart meters, smart poles, PSNs, cloud backend, and blockchain. Data is securely relayed from meters and poles to the cloud and immutable blockchain, enabling real-time monitoring and secure top-up.</p>
-    <img src="https://raw.githubusercontent.com/mensahsandra/PowerGridX-demo/main/assets/images/PowerGridX_Architecture.svg" alt="PGX Architecture" class="arch-img">
+    <img src="https://raw.githubusercontent.com/mensahsandra/PowerGridX-demo/main/assets/images/PowerGridX_Architecture.svg" 
+     alt="PGX Architecture" 
+     class="arch-img"
+     id="archImg"
+     style="cursor: zoom-in; max-width: 300px; box-shadow: 0 2px 12px #0001; border-radius: 12px;">
+     <!-- Modal for large view -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modal-img">
+</div>
   </div>
   <div id="section-psnarch" class="section">
     <h2>PSN Architecture</h2>
