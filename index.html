@@ -134,7 +134,6 @@
     <a href="#" data-section="poles">Smart Poles</a>
     <a href="#" data-section="simulator">Simulator</a>
     <a href="#" data-section="userappui">User App UI</a>
-    <a href="#" data-section="dashboard">Dashboard Sim</a>
     <a href="#" data-section="pgxarch">PGX Architecture</a>
     <a href="#" data-section="psnarch">PSN Architecture</a>
     <a href="#" data-section="blockchain">Blockchain</a>
@@ -354,77 +353,6 @@
       redraw();
     }
     // User Dashboard Simulator
-    const user = {
-      name: "Sandra Mensah",
-      meterNo: "001234",
-      poleNo: "P-001",
-      appliances: [
-        { name: "Fridge", isOn: true, voltage: 200 },
-        { name: "Fan", isOn: false, voltage: 0 },
-        { name: "TV", isOn: true, voltage: 120 },
-        { name: "Bulb", isOn: true, voltage: 60 },
-      ],
-      voltage: 220,
-      current: 4,
-      power: 880,
-      loads: 3,
-      connections: {
-        meter: true,
-        pole: true,
-        transformer: true,
-        cloud: true,
-      }
-    };
-    function renderPGXDashboard(user) {
-      const onCount = user.appliances.filter(a => a.isOn).length;
-      const connSteps = [
-        { key: 'meter', label: 'Meter' },
-        { key: 'pole', label: 'Pole' },
-        { key: 'transformer', label: 'Transformer' },
-        { key: 'cloud', label: 'Cloud' }
-      ];
-      document.getElementById('pgx-dashboard').innerHTML = `
-        <div class="dashboard-sim">
-          <div class="dash-header">
-            <div class="big">${user.name}</div>
-            <div class="idline">
-              Meter: <b>${user.meterNo}</b> &nbsp; | &nbsp; Pole: <b>${user.poleNo}</b>
-            </div>
-          </div>
-          <div class="live-row">
-            <div>Voltage: <b>${user.voltage}V</b></div>
-            <div>Current: <b>${user.current}A</b></div>
-          </div>
-          <div class="live-row">
-            <div>Power: <b>${user.power}W</b></div>
-            <div>Loads: <b>${onCount}</b></div>
-          </div>
-          <div class="appliance-block">
-            <div style="font-weight:bold; margin-bottom:7px;">
-              Appliances Detected:
-            </div>
-            ${user.appliances.map(a => `
-              <div class="row">
-                <span class="appliance-title">${a.name}</span>
-                <span class="${a.isOn ? "appliance-on" : "appliance-off"}">${a.isOn ? "ON" : "OFF"}</span>
-                <span>${a.isOn ? (a.voltage + "V") : ""}</span>
-              </div>
-            `).join('')}
-          </div>
-          <div class="connections">
-            ${connSteps.map((step, i) => `
-              <div class="conn-node">
-                <div class="conn-dot ${user.connections[step.key] ? "active" : "inactive"}">
-                  ${user.connections[step.key] ? "✓" : "!"}
-                </div>
-                <div class="conn-label">${step.label}</div>
-              </div>
-              ${i < connSteps.length - 1 ? '<span class="conn-arrow">&#8594;</span>' : ''}
-            `).join('')}
-          </div>
-        </div>
-      `;
-    }
   </script>
   <script>
 // Demo users for login/signup
