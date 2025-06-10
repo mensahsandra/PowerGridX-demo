@@ -1,0 +1,942 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerGridX Contractor App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --pgx-dark: #2e3e4e;
+            --pgx-blue: #044080;
+            --pgx-orange: #fa4616;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--pgx-dark);
+        }
+        
+        .pgx-btn-primary {
+            background-color: var(--pgx-blue);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .pgx-btn-primary:hover {
+            background-color: #033670;
+        }
+        
+        .pgx-btn-secondary {
+            background-color: white;
+            color: var(--pgx-blue);
+            border: 1px solid var(--pgx-blue);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .pgx-btn-secondary:hover {
+            background-color: #f0f5ff;
+        }
+        
+        .pgx-input {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+        
+        .pgx-input:focus {
+            outline: none;
+            border-color: var(--pgx-blue);
+            box-shadow: 0 0 0 3px rgba(4, 64, 128, 0.1);
+        }
+        
+        .pgx-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--pgx-dark);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .status-pending {
+            background-color: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .status-progress {
+            background-color: #DBEAFE;
+            color: #1E40AF;
+        }
+        
+        .status-completed {
+            background-color: #D1FAE5;
+            color: #065F46;
+        }
+        
+        .page {
+            display: none;
+            min-height: 100vh;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .page.active {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem;
+            color: #94a3b8;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item.active {
+            color: var(--pgx-blue);
+        }
+        
+        .nav-item i {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .nav-item span {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease forwards;
+        }
+        
+        .job-card {
+            transition: all 0.2s ease;
+        }
+        
+        .job-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* QR Scanner Animation */
+        .qr-scanner {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            border: 2px solid var(--pgx-blue);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: var(--pgx-orange);
+            top: 0;
+            box-shadow: 0 0 8px 2px rgba(250, 70, 22, 0.5);
+            animation: scan 2s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 248px; }
+            100% { top: 0; }
+        }
+        
+        .corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: var(--pgx-blue);
+            border-width: 4px;
+        }
+        
+        .corner-top-left {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+            border-top-left-radius: 0.5rem;
+        }
+        
+        .corner-top-right {
+            top: 0;
+            right: 0;
+            border-left: none;
+            border-bottom: none;
+            border-top-right-radius: 0.5rem;
+        }
+        
+        .corner-bottom-left {
+            bottom: 0;
+            left: 0;
+            border-right: none;
+            border-top: none;
+            border-bottom-left-radius: 0.5rem;
+        }
+        
+        .corner-bottom-right {
+            bottom: 0;
+            right: 0;
+            border-left: none;
+            border-top: none;
+            border-bottom-right-radius: 0.5rem;
+        }
+        
+        /* Profile page specific styles */
+        .profile-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--pgx-blue);
+        }
+        
+        .profile-stat-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 0.25rem;
+        }
+        
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .profile-menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .profile-menu-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        
+        .profile-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Page 1: Login -->
+        <div id="login-page" class="page active">
+            <div class="flex flex-col items-center justify-center min-h-screen p-6">
+                <div class="w-full max-w-md">
+                    <!-- Logo -->
+                    <div class="flex justify-center mb-8">
+                        <svg width="180" height="50" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Power Text -->
+                            <text x="20" y="55" font-family="Montserrat, sans-serif" font-size="36" font-weight="700" fill="#2e3e4e">Power</text>
+                            
+                            <!-- Grid Text -->
+                            <text x="130" y="55" font-family="Montserrat, sans-serif" font-size="36" font-weight="700" fill="#2e3e4e">Grid</text>
+                            
+                            <!-- X with special styling -->
+                            <text x="220" y="55" font-family="Montserrat, sans-serif" font-size="40" font-weight="800" fill="#2e3e4e">X</text>
+                            
+                            <!-- Blue underline element -->
+                            <rect x="20" y="65" width="230" height="4" rx="2" fill="#044080" />
+                        </svg>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-8 animate-fade-in">
+                        <h1 class="text-2xl font-bold text-center mb-6">Contractor Login</h1>
+                        
+                        <form id="login-form">
+                            <div class="mb-4">
+                                <label for="email" class="pgx-label">Phone Number / Email</label>
+                                <input type="text" id="email" class="pgx-input" placeholder="Enter your phone or email">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="password" class="pgx-label">Password</label>
+                                <input type="password" id="password" class="pgx-input" placeholder="Enter your password">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="contractor-id" class="pgx-label">Contractor ID</label>
+                                <input type="text" id="contractor-id" class="pgx-input" placeholder="Enter your contractor ID">
+                            </div>
+                            
+                            <button type="button" id="login-btn" class="pgx-btn-primary w-full mb-4">Sign In</button>
+                            
+                            <div class="text-center mb-6">
+                                <a href="#" class="text-sm text-blue-600 hover:underline">Forgot ID or password?</a>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="fas fa-wifi text-gray-500"></i>
+                                    </div>
+                                    <span class="text-sm">NFC Tap-in</span>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <span class="text-sm mr-2">Biometric</span>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="w-12 h-6 bg-gray-200 rounded-full relative inline-block">
+                                            <span class="w-5 h-5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform duration-200 transform"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page 2: Jobs Dashboard -->
+        <div id="dashboard-page" class="page">
+            <div class="flex flex-col min-h-screen">
+                <!-- Header -->
+                <header class="bg-white shadow-sm p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <svg width="40" height="40" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                                <!-- PG Text -->
+                                <text x="20" y="35" font-family="Montserrat, sans-serif" font-size="28" font-weight="700" fill="#2e3e4e">PG</text>
+                                
+                                <!-- X with special styling -->
+                                <text x="60" y="35" font-family="Montserrat, sans-serif" font-size="32" font-weight="800" fill="#2e3e4e">X</text>
+                                
+                                <!-- Blue underline element -->
+                                <rect x="20" y="42" width="60" height="3" rx="1.5" fill="#044080" />
+                            </svg>
+                            <h1 class="text-xl font-bold ml-2">My Installations</h1>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+                                <i class="fas fa-bell text-gray-500"></i>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-[#044080] flex items-center justify-center text-white font-bold">
+                                JD
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                
+                <!-- Main Content -->
+                <main class="flex-1 p-4 pb-20">
+                    <!-- Filter -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-2">
+                            <button class="px-3 py-1 bg-[#044080] text-white rounded-full text-sm">All</button>
+                            <button class="px-3 py-1 bg-white text-gray-600 rounded-full text-sm">Pending</button>
+                            <button class="px-3 py-1 bg-white text-gray-600 rounded-full text-sm">In Progress</button>
+                        </div>
+                        <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-filter text-gray-500"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Jobs List -->
+                    <div class="space-y-4">
+                        <!-- Job 1 -->
+                        <div class="job-card bg-white rounded-xl shadow p-4 animate-fade-in" style="animation-delay: 0.1s">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold">Accra Central Market</h3>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium status-pending">Pending</span>
+                            </div>
+                            
+                            <div class="flex mb-3">
+                                <div class="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden mr-3">
+                                    <div class="w-full h-full bg-[#044080] opacity-20 flex items-center justify-center">
+                                        <i class="fas fa-map-marker-alt text-[#044080] text-xl"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-map-pin text-[#044080] mr-2"></i>
+                                        <span class="text-sm">5.5557° N, 0.1969° W</span>
+                                    </div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-tachometer-alt text-[#044080] mr-2"></i>
+                                        <span class="text-sm">Meter ID: PGX-M2305</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-bolt text-[#044080] mr-2"></i>
+                                        <span class="text-sm">Pole ID: ACC-P1142</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="pgx-btn-primary w-full">Start Installation</button>
+                        </div>
+                        
+                        <!-- Job 2 -->
+                        <div class="job-card bg-white rounded-xl shadow p-4 animate-fade-in" style="animation-delay: 0.2s">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold">Tema Industrial Area</h3>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium status-progress">In Progress</span>
+                            </div>
+                            
+                            <div class="flex mb-3">
+                                <div class="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden mr-3">
+                                    <div class="w-full h-full bg-[#044080] opacity-20 flex items-center justify-center">
+                                        <i class="fas fa-map-marker-alt text-[#044080] text-xl"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-map-pin text-[#044080] mr-2"></i>
+                                        <span class="text-sm">5.6348° N, 0.0168° W</span>
+                                    </div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-tachometer-alt text-[#044080] mr-2"></i>
+                                        <span class="text-sm">Meter ID: PGX-M1872</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-bolt text-[#044080] mr-2"></i>
+                                        <span class="text-sm">Pole ID: TEM-P0583</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="pgx-btn-primary w-full">Continue Installation</button>
+                        </div>
+                        
+                        <!-- Job 3 -->
+                        <div class="job-card bg-white rounded-xl shadow p-4 animate-fade-in" style="animation-delay: 0.3s">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="font-semibold">Kumasi Tech Hub</h3>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium status-completed">Completed</span>
+                            </div>
+                            
+                            <div class="flex mb-3">
+                                <div class="w-20 h-20 bg-gray-200 rounded-lg overflow-hidden mr-3">
+                                    <div class="w-full h-full bg-[#044080] opacity-20 flex items-center justify-center">
+                                        <i class="fas fa-map-marker-alt text-[#044080] text-xl"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-map-pin text-[#044080] mr-2"></i>
+                                        <span class="text-sm">6.6885° N, 1.6244° W</span>
+                                    </div>
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-tachometer-alt text-[#044080] mr-2"></i>
+                                        <span class="text-sm">Meter ID: PGX-M1024</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <i class="fas fa-bolt text-[#044080] mr-2"></i>
+                                        <span class="text-sm">Pole ID: KUM-P0217</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="pgx-btn-secondary w-full">View Details</button>
+                        </div>
+                    </div>
+                </main>
+                
+                <!-- Bottom Navigation -->
+                <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around py-2">
+                    <a href="#" class="nav-item active" data-page="dashboard-page">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="installation-page">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Assignments</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="profile-page">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Page 3: Meter Pairing & Fault Reporting -->
+        <div id="installation-page" class="page">
+            <div class="flex flex-col min-h-screen">
+                <!-- Header -->
+                <header class="bg-white shadow-sm p-4">
+                    <div class="flex items-center">
+                        <button id="back-to-dashboard" class="mr-2">
+                            <i class="fas fa-arrow-left text-[#2e3e4e]"></i>
+                        </button>
+                        <h1 class="text-xl font-bold">Installation #PGX-2305</h1>
+                    </div>
+                </header>
+                
+                <!-- Main Content -->
+                <main class="flex-1 p-4 pb-20">
+                    <!-- Tabs -->
+                    <div class="flex border-b border-gray-200 mb-6">
+                        <button class="tab-btn flex-1 py-3 font-medium text-center border-b-2 border-[#044080] text-[#044080]" data-tab="pair-tab">
+                            Pair Meter
+                        </button>
+                        <button class="tab-btn flex-1 py-3 font-medium text-center text-gray-500" data-tab="report-tab">
+                            Report Issue
+                        </button>
+                    </div>
+                    
+                    <!-- Pair Meter Tab -->
+                    <div id="pair-tab" class="tab-content animate-fade-in">
+                        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                            <h2 class="text-lg font-semibold mb-4">Pair Meter with Pole & Transformer</h2>
+                            
+                            <div class="mb-6">
+                                <div class="qr-scanner mb-4">
+                                    <div class="scan-line"></div>
+                                    <div class="corner corner-top-left"></div>
+                                    <div class="corner corner-top-right"></div>
+                                    <div class="corner corner-bottom-left"></div>
+                                    <div class="corner corner-bottom-right"></div>
+                                </div>
+                                <p class="text-center text-sm text-gray-500">Scan QR code on meter or pole</p>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-[#D1FAE5] flex items-center justify-center mr-3">
+                                        <i class="fas fa-tachometer-alt text-[#065F46]"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between">
+                                            <span class="font-medium">Meter ID</span>
+                                            <span class="text-[#065F46]">Scanned</span>
+                                        </div>
+                                        <span class="text-sm text-gray-500">PGX-M2305</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                                        <i class="fas fa-bolt text-gray-400"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between">
+                                            <span class="font-medium">Pole ID</span>
+                                            <span class="text-gray-400">Not scanned</span>
+                                        </div>
+                                        <span class="text-sm text-gray-500">Tap to scan</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+                                        <i class="fas fa-broadcast-tower text-gray-400"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex justify-between">
+                                            <span class="font-medium">Transformer ID</span>
+                                            <span class="text-gray-400">Not scanned</span>
+                                        </div>
+                                        <span class="text-sm text-gray-500">Tap to scan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                            <h3 class="font-semibold mb-3">Connection Status</h3>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm">PGX Cloud Authentication</span>
+                                <span class="text-sm text-[#065F46]">Connected</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-[#10B981] rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        
+                        <button class="pgx-btn-primary w-full" disabled>Complete Pairing</button>
+                    </div>
+                    
+                    <!-- Report Issue Tab -->
+                    <div id="report-tab" class="tab-content hidden animate-fade-in">
+                        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                            <h2 class="text-lg font-semibold mb-4">Report an Issue</h2>
+                            
+                            <div class="mb-4">
+                                <label class="pgx-label">Issue Type</label>
+                                <select class="pgx-input">
+                                    <option>Select issue type</option>
+                                    <option>Faulty pole</option>
+                                    <option>Tampering detected</option>
+                                    <option>No power</option>
+                                    <option>Meter malfunction</option>
+                                    <option>Connection issue</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="pgx-label">Notes (Optional)</label>
+                                <textarea class="pgx-input" rows="4" placeholder="Describe the issue in detail..."></textarea>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="pgx-label">Upload Photo/Video</label>
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center">
+                                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-2">
+                                        <i class="fas fa-camera text-gray-400 text-xl"></i>
+                                    </div>
+                                    <p class="text-sm text-gray-500 text-center">Tap to upload photo or video evidence</p>
+                                </div>
+                            </div>
+                            
+                            <button class="pgx-btn-primary w-full">Submit to PGX</button>
+                        </div>
+                    </div>
+                </main>
+                
+                <!-- Bottom Navigation -->
+                <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around py-2">
+                    <a href="#" class="nav-item" data-page="dashboard-page">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="#" class="nav-item active" data-page="installation-page">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Assignments</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="profile-page">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Page 4: Profile Page -->
+        <div id="profile-page" class="page">
+            <div class="flex flex-col min-h-screen">
+                <!-- Header -->
+                <header class="bg-white shadow-sm p-4">
+                    <div class="flex items-center justify-between">
+                        <h1 class="text-xl font-bold">My Profile</h1>
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                            <i class="fas fa-cog text-gray-500"></i>
+                        </div>
+                    </div>
+                </header>
+                
+                <!-- Main Content -->
+                <main class="flex-1 p-4 pb-20">
+                    <!-- Profile Header -->
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                        <div class="flex items-center">
+                            <div class="w-20 h-20 rounded-full bg-[#044080] flex items-center justify-center text-white text-2xl font-bold mr-4">
+                                JD
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-bold">John Doe</h2>
+                                <p class="text-gray-500">Senior Installation Technician</p>
+                                <div class="flex items-center mt-1">
+                                    <span class="bg-[#D1FAE5] text-[#065F46] text-xs font-medium px-2 py-1 rounded-full">Verified</span>
+                                    <span class="text-sm text-gray-500 ml-2">ID: PGX-C7842</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 grid grid-cols-3 gap-4">
+                            <div class="profile-stat">
+                                <span class="profile-stat-value">42</span>
+                                <span class="profile-stat-label">Installations</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="profile-stat-value">98%</span>
+                                <span class="profile-stat-label">Success Rate</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="profile-stat-value">4.9</span>
+                                <span class="profile-stat-label">Rating</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Certifications -->
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                        <h3 class="font-semibold mb-4">Certifications & Skills</h3>
+                        
+                        <div class="flex flex-wrap mb-4">
+                            <span class="profile-badge bg-blue-100 text-blue-800">Smart Meter Installation</span>
+                            <span class="profile-badge bg-green-100 text-green-800">Electrical Safety</span>
+                            <span class="profile-badge bg-purple-100 text-purple-800">Grid Connectivity</span>
+                            <span class="profile-badge bg-yellow-100 text-yellow-800">Fault Diagnosis</span>
+                            <span class="profile-badge bg-red-100 text-red-800">High Voltage</span>
+                            <span class="profile-badge bg-indigo-100 text-indigo-800">IoT Integration</span>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Technical Proficiency</span>
+                                <span class="text-sm font-medium">95%</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-[#044080] rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Customer Service</span>
+                                <span class="text-sm font-medium">88%</span>
+                            </div>
+                            <div class="h-2 bg-gray-200 rounded-full">
+                                <div class="h-2 bg-[#044080] rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Activity -->
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                        <h3 class="font-semibold mb-4">Recent Activity</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                    <i class="fas fa-check text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Completed installation at Kumasi Tech Hub</p>
+                                    <p class="text-sm text-gray-500">Yesterday at 2:30 PM</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                                    <i class="fas fa-exclamation-triangle text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Reported issue with transformer at Tema Industrial</p>
+                                    <p class="text-sm text-gray-500">2 days ago</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                    <i class="fas fa-award text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Received "Quick Resolver" badge</p>
+                                    <p class="text-sm text-gray-500">1 week ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Menu Options -->
+                    <div class="bg-white rounded-xl shadow-md mb-6">
+                        <div class="profile-menu-item">
+                            <div class="profile-menu-icon bg-blue-50">
+                                <i class="fas fa-file-alt text-blue-500"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium">My Documents</span>
+                                    <i class="fas fa-chevron-right text-gray-400"></i>
+                                </div>
+                                <span class="text-sm text-gray-500">Certificates, licenses, training</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-menu-item">
+                            <div class="profile-menu-icon bg-green-50">
+                                <i class="fas fa-chart-line text-green-500"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium">Performance Stats</span>
+                                    <i class="fas fa-chevron-right text-gray-400"></i>
+                                </div>
+                                <span class="text-sm text-gray-500">View detailed metrics</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-menu-item">
+                            <div class="profile-menu-icon bg-purple-50">
+                                <i class="fas fa-bell text-purple-500"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium">Notifications</span>
+                                    <i class="fas fa-chevron-right text-gray-400"></i>
+                                </div>
+                                <span class="text-sm text-gray-500">3 unread messages</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-menu-item">
+                            <div class="profile-menu-icon bg-red-50">
+                                <i class="fas fa-sign-out-alt text-red-500"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-medium">Logout</span>
+                                    <i class="fas fa-chevron-right text-gray-400"></i>
+                                </div>
+                                <span class="text-sm text-gray-500">Sign out from this device</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center text-sm text-gray-500 mb-4">
+                        <p>PowerGridX Contractor App v4.2.1</p>
+                        <p>© 2023 PowerGridX Energy Solutions</p>
+                    </div>
+                </main>
+                
+                <!-- Bottom Navigation -->
+                <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around py-2">
+                    <a href="#" class="nav-item" data-page="dashboard-page">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="#" class="nav-item" data-page="installation-page">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Assignments</span>
+                    </a>
+                    <a href="#" class="nav-item active" data-page="profile-page">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Page Navigation
+        document.getElementById('login-btn').addEventListener('click', function() {
+            switchPage('dashboard-page');
+        });
+        
+        document.getElementById('back-to-dashboard').addEventListener('click', function() {
+            switchPage('dashboard-page');
+        });
+        
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+                if (pageId) {
+                    switchPage(pageId);
+                    
+                    // Update active nav item
+                    document.querySelectorAll('.nav-item').forEach(navItem => {
+                        navItem.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+        
+        // Tab Navigation
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Update active tab button
+                document.querySelectorAll('.tab-btn').forEach(tabBtn => {
+                    tabBtn.classList.remove('border-[#044080]', 'text-[#044080]');
+                    tabBtn.classList.add('text-gray-500');
+                });
+                this.classList.add('border-[#044080]', 'text-[#044080]');
+                this.classList.remove('text-gray-500');
+                
+                // Show active tab content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                document.getElementById(tabId).classList.remove('hidden');
+            });
+        });
+        
+        // Toggle switch
+        document.querySelector('input[type="checkbox"]').addEventListener('change', function() {
+            const toggleHandle = this.nextElementSibling.querySelector('span');
+            if (this.checked) {
+                toggleHandle.classList.add('translate-x-6');
+                this.nextElementSibling.classList.add('bg-[#044080]');
+                this.nextElementSibling.classList.remove('bg-gray-200');
+            } else {
+                toggleHandle.classList.remove('translate-x-6');
+                this.nextElementSibling.classList.remove('bg-[#044080]');
+                this.nextElementSibling.classList.add('bg-gray-200');
+            }
+        });
+        
+        // Profile menu item interactions
+        document.querySelectorAll('.profile-menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Add a subtle feedback effect when clicked
+                this.style.backgroundColor = '#f0f9ff';
+                setTimeout(() => {
+                    this.style.backgroundColor = '';
+                }, 300);
+            });
+        });
+        
+        // Logout functionality
+        document.querySelector('.profile-menu-item:last-child').addEventListener('click', function() {
+            switchPage('login-page');
+            // Reset navigation
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+            });
+            document.querySelector('.nav-item[data-page="dashboard-page"]').classList.add('active');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94d51b7ad5889334',t:'MTc0OTUxOTA2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
