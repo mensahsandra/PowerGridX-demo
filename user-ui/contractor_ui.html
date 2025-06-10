@@ -272,21 +272,12 @@
             <div class="flex flex-col items-center justify-center min-h-screen p-6">
                 <div class="w-full max-w-md">
                     <!-- Logo -->
-                    <div class="flex justify-center mb-8">
-                        <svg width="180" height="50" viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Power Text -->
-                            <text x="20" y="55" font-family="Montserrat, sans-serif" font-size="36" font-weight="700" fill="#2e3e4e">Power</text>
-                            
-                            <!-- Grid Text -->
-                            <text x="130" y="55" font-family="Montserrat, sans-serif" font-size="36" font-weight="700" fill="#2e3e4e">Grid</text>
-                            
-                            <!-- X with special styling -->
-                            <text x="220" y="55" font-family="Montserrat, sans-serif" font-size="40" font-weight="800" fill="#2e3e4e">X</text>
-                            
-                            <!-- Blue underline element -->
-                            <rect x="20" y="65" width="230" height="4" rx="2" fill="#044080" />
-                        </svg>
-                    </div>
+<div class="header-logo-text flex items-center justify-center mb-8">
+    <img src="https://raw.githubusercontent.com/mensahsandra/PowerGridX-demo/main/assets/images/PGX_Logo.png" alt="PowerGridX Logo" class="logo-tight" style="height:48px;width:auto;margin-right:10px;">
+    <span class="brand-text text-3xl font-bold" style="font-family:Montserrat,sans-serif;">
+        <span class="brand-blue" style="color:#044080;">PowerGrid</span><span class="brand-orange" style="color:#fa4616;">X</span>
+    </span>
+</div>
                     
                     <div class="bg-white rounded-xl shadow-lg p-8 animate-fade-in">
                         <h1 class="text-2xl font-bold text-center mb-6">Contractor Login</h1>
@@ -339,33 +330,27 @@
         
         <!-- Page 2: Jobs Dashboard -->
         <div id="dashboard-page" class="page">
-            <div class="flex flex-col min-h-screen">
-                <!-- Header -->
-                <header class="bg-white shadow-sm p-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <svg width="40" height="40" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
-                                <!-- PG Text -->
-                                <text x="20" y="35" font-family="Montserrat, sans-serif" font-size="28" font-weight="700" fill="#2e3e4e">PG</text>
-                                
-                                <!-- X with special styling -->
-                                <text x="60" y="35" font-family="Montserrat, sans-serif" font-size="32" font-weight="800" fill="#2e3e4e">X</text>
-                                
-                                <!-- Blue underline element -->
-                                <rect x="20" y="42" width="60" height="3" rx="1.5" fill="#044080" />
-                            </svg>
-                            <h1 class="text-xl font-bold ml-2">My Installations</h1>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-2">
-                                <i class="fas fa-bell text-gray-500"></i>
-                            </div>
-                            <div class="w-10 h-10 rounded-full bg-[#044080] flex items-center justify-center text-white font-bold">
-                                JD
-                            </div>
-                        </div>
-                    </div>
-                </header>
+<header class="bg-white shadow-sm p-4">
+  <div class="flex items-center justify-between">
+    <!-- Left: Logo and Title -->
+    <div class="flex items-center">
+      <img src="https://raw.githubusercontent.com/mensahsandra/PowerGridX-demo/main/assets/images/PGX_Logo.png" alt="PowerGridX Logo" class="logo-tight" style="height:32px;width:auto;margin-right:8px;">
+      <span class="brand-text text-xl font-bold" style="font-family:Montserrat,sans-serif;">
+        <span class="brand-blue" style="color:#044080;">PowerGrid</span><span class="brand-orange" style="color:#fa4616;">X</span>
+      </span>
+      <h1 class="text-xl font-bold ml-3">My Installations</h1>
+    </div>
+    <!-- Right: Notification and Avatar -->
+    <div class="flex items-center">
+      <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+        <i class="fas fa-bell text-gray-500"></i>
+      </div>
+      <div class="w-10 h-10 rounded-full bg-[#044080] flex items-center justify-center text-white font-bold">
+        JD
+      </div>
+    </div>
+  </div>
+</header>
                 
                 <!-- Main Content -->
                 <main class="flex-1 p-4 pb-20">
