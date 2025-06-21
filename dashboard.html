@@ -36,25 +36,26 @@
     <img src="/assets/images/Solarpanels.jpg" alt="Solar Panels" class="hero-image" />
     <div class="hero-content">
       <h1>Smart Infrastructure for Africa's Power</h1>
-      <p>Cleaner, connected, and community-powered energy distribution.</p>
-      <a href="#" class="btn-cta">Join the Pilot</a>
+      <p>Visible, connected and community powered energy distribution.</p>
+      <a href="#" class="btn-cta" onclick="openModal('pilotModal')">Join the Pilot</a>
     </div>
   </section>
 
-  <section class="intro">
+  <section id="overview" class="intro">
     <div class="container">
       <h2>Introduction</h2>
-      <p><strong>PowerGridX</strong> is a smart infrastructure initiative addressing energy access across underserved African communities. Using tamper-resistant smart meters, renewable smart poles, and mobile-first systems, we drive down inefficiency, theft, and outages.</p>
-      <p>Our platform delivers real-time asset visibility, secure contractor tools, and accessible recharge options—empowering utilities, technicians, and residents alike.</p>
+      <p><span class="brand-blue">PowerGrid</span><span class="brand-orange">X</span> is a smart infrastructure initiative addressing energy access across underserved African communities. Using tamper resistant smart meters, renewable smart poles and mobile first systems, we drive down inefficiency, theft, and outages.</p>
+      <p>Our platform delivers real-time asset visibility, secure contractor tools and accessible recharge options empowering utilities, technicians and residents alike.</p>
     </div>
   </section>
 
 <section  class="video-section">
   <div class="container">
     <div class="video-wrapper">
-<video autoplay muted loop playsinline>
-  <source src="/assets/videos/with nature.mp4" type="video/mp4">
-</video>
+      <video autoplay muted loop playsinline>
+        <source src="/assets/videos/with energy.mp4" type="video/mp4">
+      </video>
+      <img src="/assets/images/Beige and Brown Refined Scrapbook Peace Quotes Peace Instagram Post.png" alt="Overlay Image" class="video-overlay-image">
     </div>
   </div>
 </section>
@@ -62,18 +63,17 @@
 <section id="challenges" class="scorecard-challenges">
   <div class="container">
     <h2 class="section-title">
-      <img src="assets/images/icon-lightning.svg" alt="" class="heading-icon">
       The Challenges – Field Insights
     </h2>
     <p class="section-subtitle">
-      (Based on real-world experience from ECG & BPS digitalization project)
+      (Based on real-world experience from ECG & BPS digitalization project in Ghana)
     </p>
     <div class="scorecard-challenge-layout">
       <div class="scorecard-challenge-left">
         <div class="challenge-cards">
           <div class="challenge">
             <h3>High Energy Theft & Losses</h3>
-            <p>Over 30% of power is lost to theft, illegal connections, and unregistered meters, crippling utility revenues.</p>
+            <p>Over 40% of power is lost to theft, illegal connections and unregistered meters, crippling utility revenues.</p>
           </div>
           <div class="challenge">
             <h3>Widespread Tampering & Power Theft</h3>
@@ -85,11 +85,11 @@
           </div>
           <div class="challenge">
             <h3>Manual Processes & Inefficiency</h3>
-            <p>Installations and fault reporting rely on informal contractors, handwritten notes, and delayed follow-ups.</p>
+            <p>Installations and fault reporting rely on informal contractors, handwritten notes and delayed follow-ups.</p>
           </div>
           <div class="challenge">
             <h3>Customer Frustration</h3>
-            <p>Common complaints include unclear bills, long fault resolution times, and no insight into usage or top-ups.</p>
+            <p>Common complaints include unclear bills, long fault resolution times and no insight into usage or top-ups.</p>
           </div>
         </div>
       </div>
@@ -103,9 +103,9 @@
   </div>
 </section>
 
-<section id = "split-feature-card" class="split-feature-card">
-  <div class="container feature-card-layout">
-    <div class="feature-left">
+<section id="split-feature-card" class="scorecard-feature-split">
+  <div class="container">
+    <div class="scorecard-feature-left">
       <h3>What We're Building</h3>
       <ul class="feature-points">
         <li>Tamper-proof smart meters with keypad + contractor-ID slot</li>
@@ -115,24 +115,25 @@
         <li>Mini-grid-ready for off-grid & essential services</li>
       </ul>
     </div>
-    <div class="feature-right">
+    <div class="scorecard-feature-right">
       <img src="/assets/images/whatwebuilding.png" alt="PowerGridX components overview" />
     </div>
   </div>
 </section>
 
-<section class="split-feature-card">
-  <div class="container feature-card-layout">
-    <div class="feature-left">
+<section class="scorecard-feature-split">
+  <div class="container">
+    <div class="scorecard-feature-left">
       <h3>Why Now?</h3>
       <ul class="feature-points">
         <li>Traditional meter technology is outdated and easy to tamper with</li>
         <li>Rising demand for secure, remote management of electricity infrastructure</li>
         <li>Urgent need to expand access and improve reliability across underserved areas</li>
+        <li><span style="color: #044080; font-weight: 700;">Energy Theft is a Public Cost and a Private Risk:</span> As energy theft and tampering go unchecked, utilities lose revenue and communities lose trust. <br>Every bypassed meter weakens the grid and with Ghana's increasing load demand, even small inefficiencies now create wide-scale outages tomorrow.</li>
+        <li><span style="color: #044080; font-weight: 700;">A Demand for Traceable Infrastructure:</span> PGX is aligned with this shift, offering blockchain-secured logs and transparent service records to help meet ESG, SDG and governance benchmarks.</li>
       </ul>
     </div>
-
-    <div class="feature-right">
+    <div class="scorecard-feature-right">
       <video autoplay muted loop playsinline>
         <source src="/assets/videos/why now.mp4" type="video/mp4" />
         Your browser does not support the video tag.
@@ -141,9 +142,9 @@
   </div>
 </section>
 
-<section class="split-feature-card why-matters">
-  <div class="container feature-card-layout">
-    <div class="feature-left">
+<section class="scorecard-feature-split why-matters">
+  <div class="container">
+    <div class="scorecard-feature-left">
       <h3>Why It Matters</h3>
       <ul class="feature-points">
         <li>Tamper-resistant meters with transformer-pairing</li>
@@ -154,31 +155,32 @@
         <li>Audit trail secured by blockchain</li>
       </ul>
       <p class="impact-note">
-        Tackling energy theft, grid unreliability, and bill transparency with scalable, modular solutions.
+        Tackling energy theft, grid unreliability and bill transparency with scalable, modular solutions.
         <br><br>
-        Aligned with World Bank goals: <em>90% global electricity access & 210K+ mini-grids by 2030 (e3g.org)</em>
+        Aligned with World Bank Goals: <em><span style="color: #044080; font-weight: 700;">90% Global Electricity access & 210K+ mini-grids by 2030</span></em> (<a href="https://www.e3g.org/bank-metrics/energy-access-and-fuel-poverty/?utm_source=chatgpt.com" target="_blank" style="color: #2196F3; text-decoration: underline;">e3g.org</a>)
       </p>
     </div>
-    <div class="feature-right">
-      <img src="why-matters-visual.png" alt="Why PowerGridX Matters visualization" />
+    <div class="scorecard-feature-right">
+      <img src="/assets/images/christian-dubovan-gxsRL8B_ZqE-unsplash.jpg" alt="Why PowerGridX Matters visualization" />
     </div>
   </div>
 </section>
 
-<section id="impact">
-  <div class="container feature-card-layout">
-    <div class="feature-left">
-      <h3>Our Impact</h3>
+<section id="impact" class="scorecard-feature-split">
+  <div class="container">
+    <div class="scorecard-feature-left">
+      <h3>Impact</h3>
       <ul class="feature-points">
-        <li>Digitization of over 2,000+ field assets in pilot regions</li>
-        <li>Reduction in illegal bypasses and clearer fault diagnostics</li>
-        <li>Improved response rates through mapped contractor accountability</li>
-        <li>Increased transparency with blockchain-logged events</li>
-        <li>Stronger community trust and collaboration on field reports</li>
+        <li><span style="color: #044080; font-weight: 700;">Enable Digital-First Energy Access in Unreached Zones</span><br>
+        PGX is designed to serve peri-urban and rural areas where digital services and infrastructure are often skipped. Our system works with or without high-speed internet, meaning it can empower last-mile users without excluding them.</li>
+        <li><span style="color: #044080; font-weight: 700;">Make Power Management Local and Traceable</span><br>
+        By pairing each meter with a contractor, pole, and community dashboard, PGX decentralizes grid visibility, so local workers are accountable, and local users are informed. This flips the trust model from top-down to community-first.</li>
+        <li><span style="color: #044080; font-weight: 700;">Build the Foundation for Smart Grid Readiness in West Africa</span><br>
+        PGX doesn't just fix tampering, it lays the groundwork for a smart energy future: from load forecasting to community-level energy analytics. It's a step toward resilient, self-regulating grids.</li>
       </ul>
     </div>
-    <div class="feature-right">
-      <img src="impact-metrics.png" alt="Impact statistics and field results" />
+    <div class="scorecard-feature-right">
+      <img src="/assets/images/andreas-gucklhorn-Ilpf2eUPpUE-unsplash.jpg" alt="Impact statistics and field results" />
     </div>
   </div>
 </section>
@@ -201,7 +203,7 @@
       </ul>
     </div>
     <div class="spotlight-image">
-      <img src="smart-meter.png" alt="User UI" class="oversized-img" />
+      <img src="smart-meter.png" alt="In Progress" class="oversized-img" />
     </div>
   </div>
 </section>
@@ -214,12 +216,12 @@
         <li>Solar + battery backup</li>
         <li>Dual LED lighting</li>
         <li>LoRa base node placement</li>
-        <li>Optional/Future Integation: mosquito-repelling tech</li>
+        <li>Optional/Future Integation: mosquito repelling tech</li>
         <li>Blockchain monitoring enabled</li>
       </ul>
     </div>
     <div class="spotlight-image">
-      <img src="smart-meter.png" alt="User UI" class="oversized-img"/>
+      <img src="smart-meter.png" alt="In Progress" class="oversized-img"/>
     </div>
   </div>
 </section>
@@ -238,7 +240,7 @@
       </ul>
     </div>
     <div class="spotlight-image">
-      <img src="smart-meter.png" alt="User UI" class="oversized-img"/>
+      <img src="smart-meter.png" alt="In Progress" class="oversized-img"/>
     </div>
   </div>
 </section>
@@ -260,6 +262,7 @@ and billing transparency.</p>
     </div>
     <div class="spotlight-image">
       <img src="/assets/images/credit-Husk-power.jpg" alt="User UI" class="oversized-img" />
+      <p class="photo-credit">Photo Credit: Husk Power</p>
     </div>
   </div>
 </section>
@@ -336,7 +339,7 @@ and billing transparency.</p>
       <p>Every meter action is logged and tied to the contractor's ID to ensure full traceability.</p>
     </div>
 <div class="spotlight-image image-with-button">
-  <img src="smart-meter.png" alt="User UI" class="oversized-img" />
+  <img src="/assets/images/Beige and Brown Refined Scrapbook Peace Quotes Peace Instagram Post (1).png" alt="User UI" class="oversized-img" />
   <button class="image-button" onclick="openModal('contractorModal')">View Contractor Interface</button>
 </div>
 
@@ -359,16 +362,8 @@ Real users, contractors, and partners are submitting their intent to participate
  </p>
 </div>
 <div class="spotlight-image image-with-button">
-  <img src="smart-meter.png" alt="User UI" class="oversized-img" />
-  <button class="image-button" onclick="openModal('intentofproofModal')">View Intent of Proof</button>
-</div>
-
-<!-- Intent of Proof Simulation Modal -->
-<div id="intentofproofModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal('intentofproofModal')">&times;</span>
-    <iframe src="user-simulation.html" frameborder="0"></iframe>
-  </div>
+  <img src="/smart-meter.png" alt="User UI" class="oversized-img" />
+  <button class="image-button" onclick="window.open('https://form.typeform.com/report/fp9OeJsI/ywAzf1v7Ll7VLuvH', '_blank')">View Intent of Proof</button>
 </div>
   </div>
 </section>
@@ -531,5 +526,46 @@ Real users, contractors, and partners are submitting their intent to participate
     appearOnScroll.observe(fader);
   });
 </script>
+
+<!-- Pilot Signup Modal -->
+<div id="pilotModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('pilotModal')">&times;</span>
+    <form action="https://formspree.io/f/xeoklegy" method="POST" class="modal-form">
+      <h3>Join the PowerGridX Pilot</h3>
+      <p style="margin-bottom: 1.5rem; color: #666;">Express your interest in participating in our pilot program. We'll get back to you with next steps.</p>
+
+      <label for="pilot-name">Full Name</label>
+      <input type="text" id="pilot-name" name="pilot-name" required />
+
+      <label for="pilot-email">Email Address</label>
+      <input type="email" id="pilot-email" name="pilot-email" required />
+
+      <label for="pilot-organization">Organization/Company</label>
+      <input type="text" id="pilot-organization" name="pilot-organization" />
+
+      <label for="pilot-role">Your Role</label>
+      <select id="pilot-role" name="pilot-role" required>
+        <option value="">Select your role</option>
+        <option value="business">Business</option>
+        <option value="individual">Individual</option>
+        <option value="utility">Utility Company</option>
+        <option value="contractor">Contractor/Technician</option>
+        <option value="community">Community Leader</option>
+        <option value="investor">Investor</option>
+        <option value="regulator">Regulator</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="pilot-location">Location/Region</label>
+      <input type="text" id="pilot-location" name="pilot-location" placeholder="e.g., Accra, Ghana" required />
+
+      <label for="pilot-interest">Why are you interested in joining the pilot?</label>
+      <textarea id="pilot-interest" name="pilot-interest" rows="4" placeholder="Tell us about your interest in PowerGridX and how you'd like to participate..." required></textarea>
+
+      <button type="submit">Submit Interest</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>
