@@ -6,6 +6,606 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="dashboard.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Essential CSS to ensure basic styling works */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1b1b1b;
+      line-height: 1.6;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+    
+    .main-header {
+      background-color: #0D1B2A;
+      padding: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .brand-heading {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .brand-blue {
+      color: #044080;
+    }
+    
+    .brand-orange {
+      color: #fa4616;
+    }
+    
+    .navbar {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .navbar a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .navbar a:hover {
+      color: #F57C00;
+    }
+    
+    .hero {
+      position: relative;
+      height: 60vh;
+      background-color: #1B263B;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .hero-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+      z-index: 1;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: #ffffff;
+      text-align: center;
+      max-width: 700px;
+      padding: 0 1rem;
+    }
+    
+    .hero-content h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .btn-cta {
+      display: inline-block;
+      background-color: #F57C00;
+      color: #ffffff;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    
+    .btn-cta:hover {
+      background-color: #e65100;
+    }
+    
+    .intro {
+      padding: 4rem 0;
+      background-color: #f9f9f9;
+    }
+    
+    .intro h2 {
+      color: #044080;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .intro p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .section-title {
+      color: #044080;
+      font-size: 2rem;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .section-subtitle {
+      color: #2196F3;
+      font-size: 1rem;
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+    
+    .scorecard-challenges {
+      background: #fff;
+      padding: 5rem 0 5rem 0;
+    }
+    
+    .scorecard-challenge-layout {
+      display: flex;
+      gap: 3rem;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .scorecard-challenge-left {
+      flex: 0 0 38%;
+      max-width: 420px;
+      padding: 2rem 0 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .scorecard-challenge-right {
+      flex: 1 1 62%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      position: relative;
+    }
+    
+    .scorecard-challenge-video {
+      width: 100%;
+      max-width: 700px;
+      height: 480px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      background: #f5f5f5;
+    }
+    
+    .challenge-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .challenge {
+      background: #ffffff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+      border: 1px solid #eef;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+    
+    .challenge h3 {
+      color: #044080;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .challenge p {
+      font-size: 1rem;
+      color: #333333;
+    }
+    
+    .scorecard-feature-split {
+      background: #fff;
+      padding: 5rem 0 5rem 0;
+    }
+    
+    .scorecard-feature-split .container {
+      display: flex;
+      gap: 3rem;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .scorecard-feature-left {
+      flex: 0 0 38%;
+      max-width: 420px;
+      padding: 2rem 0 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .scorecard-feature-right {
+      flex: 1 1 62%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      position: relative;
+    }
+    
+    .scorecard-feature-right img,
+    .scorecard-feature-right video {
+      width: 100%;
+      max-width: 700px;
+      height: 480px;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      background: #f5f5f5;
+    }
+    
+    .scorecard-feature-left h3 {
+      color: #044080;
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+    
+    .feature-points {
+      list-style: none;
+      padding-left: 0;
+      font-size: 1rem;
+    }
+    
+    .feature-points li {
+      margin-bottom: 1rem;
+      position: relative;
+      padding-left: 1.5rem;
+      color: #1b1b1b;
+    }
+    
+    .feature-points li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55rem;
+      width: 10px;
+      height: 10px;
+      background-color: #fa4616;
+      border-radius: 50%;
+    }
+    
+    .image-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #fa4616 0%, #2196F3 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.85rem 2.2rem;
+      border: none;
+      border-radius: 32px;
+      box-shadow: 0 4px 16px rgba(34, 60, 80, 0.12);
+      cursor: pointer;
+      transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s, background 0.3s;
+      margin-top: 1.2rem;
+      letter-spacing: 0.02em;
+    }
+    
+    .image-button:hover, .image-button:focus {
+      background: linear-gradient(90deg, #2196F3 0%, #fa4616 100%);
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 8px 24px rgba(34, 60, 80, 0.2);
+    }
+    
+    .tech-spotlight {
+      background-color: #f9f9f9;
+      padding: 4rem 0;
+      border-bottom: 1px solid #eef;
+    }
+    
+    .spotlight-card {
+      background: #ffffff;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      align-items: center;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+      border: 1px solid #eef;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+    
+    .spotlight-content {
+      flex: 1 1 45%;
+      min-width: 300px;
+    }
+    
+    .spotlight-image {
+      flex: 1 1 45%;
+      min-width: 300px;
+      text-align: center;
+    }
+    
+    .spotlight-content h3 {
+      color: #044080;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    
+    .oversized-img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    
+    .photo-credit {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    
+    .founder-bio {
+      background-color: #f9f9f9;
+      padding: 4rem 0;
+    }
+    
+    .founder-flex {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .founder-img {
+      flex: 0 0 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    
+    .founder-text {
+      flex: 1;
+    }
+    
+    .founder-text h2 {
+      color: #044080;
+    }
+    
+    .contact-block {
+      background-color: #ffffff;
+      padding: 4rem 0;
+      text-align: center;
+    }
+    
+    .contact-block h2 {
+      font-size: 1.8rem;
+      color: #044080;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn-contact {
+      display: inline-block;
+      background-color: #044080;
+      color: #ffffff;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    
+    .btn-contact:hover {
+      background-color: #032d5a;
+    }
+    
+    .footer {
+      background-color: #0D1B2A;
+      padding: 1.5rem 0;
+      color: #ffffff;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    
+    .floating-feedback {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #fa4616;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+    
+    .floating-feedback:hover {
+      transform: translateY(-2px);
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .close-btn:hover {
+      color: #000;
+    }
+    
+    .modal-form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .modal-form input,
+    .modal-form textarea,
+    .modal-form select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    
+    .modal-form button {
+      background-color: #fa4616;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    
+    .modal-form button:hover {
+      background-color: #e65100;
+    }
+    
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @media (max-width: 900px) {
+      .scorecard-challenge-layout,
+      .scorecard-feature-split .container {
+        flex-direction: column;
+      }
+      
+      .scorecard-challenge-left,
+      .scorecard-feature-left {
+        flex: 1 1 100%;
+        max-width: none;
+      }
+      
+      .scorecard-challenge-right,
+      .scorecard-feature-right {
+        flex: 1 1 100%;
+      }
+      
+      .scorecard-challenge-video,
+      .scorecard-feature-right img,
+      .scorecard-feature-right video {
+        height: 300px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 1rem;
+        gap: 0.5rem;
+      }
+      
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .btn-cta {
+        font-size: 0.95rem;
+        padding: 10px 20px;
+      }
+      
+      .founder-flex {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .founder-img {
+        flex: 0 0 200px;
+        height: 200px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="main-header">
