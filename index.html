@@ -516,6 +516,38 @@
       }
     }
     
+    .video-section {
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .video-section video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    
+    .video-section .container {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .video-wrapper {
+      max-width: 100%;
+      overflow: hidden;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 450px;
+    }
+    
     .video-overlay-image {
       position: absolute;
       bottom: 20px;
@@ -529,6 +561,7 @@
 
     .video-wrapper {
       position: relative;
+      z-index: 2;
       max-width: 100%;
       overflow: hidden;
       border: none;
@@ -566,27 +599,42 @@
       position: relative;
     }
 
-    .hero-video {
+    #hero-video {
       width: 100%;
-      max-width: 800px;
-      height: 450px;
+      height: 100%;
       object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      transform: scale(1.05);
     }
     
-    .video-section video {
-      width: 100%;
-      max-width: 600px;
-      height: 350px;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-    }
-
     .video-section {
       padding: 60px 0;
       background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-section video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .video-wrapper {
+      position: relative;
+      z-index: 2;
+      max-width: 100%;
+      overflow: hidden;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 450px;
     }
 
     .intro-card {
@@ -602,7 +650,7 @@
     }
 
     .intro-card-text {
-      flex: 0 0 45%;
+      flex: 0 0 40%;
       padding: 3rem;
       background-image: url('/assets/images/paper-texture.png');
       background-size: cover;
@@ -622,18 +670,19 @@
     }
 
     .intro-card-image {
-      flex: 1 1 55%;
+      flex: 1 1 60%;
       min-height: 400px;
     }
 
-    .intro-card-image img {
+    .intro-card-image img,
+    .intro-card-image video {
       width: 100%;
-      height: 100%;
+      height: 120%;
       object-fit: cover;
     }
 
     /* Sticky effect for desktop videos */
-    @media (min-width: 768px) {
+    @media (min-width: 850px) {
       .scorecard-challenge-right,
       .scorecard-feature-right {
         position: sticky;
@@ -701,6 +750,47 @@
         height: 200px;
       }
     }
+
+    .challenge-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .challenge {
+      background-color: #f9f9f9;
+      padding: 1.5rem;
+      border-left: 5px solid #fa4616;
+      border-radius: 4px;
+    }
+
+    .challenge h3 {
+      color: #044080;
+      margin-bottom: 0.5rem;
+    }
+
+    .challenge p {
+      color: #333;
+      margin-bottom: 0; /* remove default paragraph margin */
+    }
+
+    .source-text {
+      font-style: italic;
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 1rem;
+    }
+
+    #contractorModal .modal-content {
+      width: 90%;
+      max-width: 1200px; /* Increased width for the contractor modal */
+    }
+
+    #contractorModal iframe {
+      width: 100%;
+      height: 75vh; /* Increased height for the iframe */
+      border: none;
+    }
   </style>
 </head>
 <body style="background-color: #f0f0f0;">
@@ -714,16 +804,19 @@
       </div>
       <nav class="navbar">
         <a href="#overview">Overview</a>
-          <a href="#challenges">Challenges</a>
-          <a href="#impact">Impact</a>
-          <a href="#key components">Key Components</a>
-          <a href="#architecture designs">Architecture Designs</a>
-          <a href="#interfaces">Interfaces</a>
-          <a href="#proof of intent">Proof of Intent</a>
-          <a href="#use case">Use Case</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-          <a href="#feedback" class="floating-feedback">Feedback</a>
+        <a href="#challenges">Challenges</a>
+        <a href="#what-we-are-building">What We're Building</a>
+        <a href="#why-now">Why Now?</a>
+        <a href="#why-it-matters">Why It Matters</a>
+        <a href="#impact">Impact</a>
+        <a href="#key-components">Key Components</a>
+        <a href="#architecture-designs">Architecture Designs</a>
+        <a href="#interfaces">Interfaces</a>
+        <a href="#proof-of-intent">Proof of Intent</a>
+        <a href="#use-case">Use Case</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#feedback" class="floating-feedback">Feedback</a>
       </nav>
     </div>
   </header>
@@ -737,20 +830,6 @@
     </div>
   </section>
 
-  <section class="intro-card">
-    <div class="container">
-      <div class="intro-card-content">
-        <div class="intro-card-text">
-          <p>"As of 2022, an estimated <strong>685 million people</strong> lacked access to electricity globally, with <strong>83% located in Sub-Saharan Africa</strong>"</p>
-          <p class="source">Source: The World Bank</p>
-        </div>
-        <div class="intro-card-image">
-          <img src="/assets/images/alessandro-bianchi-_kdTyfnUFAc-unsplash.jpg" alt="African landscape with power lines">
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="overview" class="intro">
     <div class="container">
       <h2>Introduction</h2>
@@ -760,11 +839,11 @@
   </section>
 
 <section  class="video-section">
+  <video autoplay muted loop playsinline>
+    <source src="/assets/videos/with energy.mp4" type="video/mp4">
+  </video>
   <div class="container">
     <div class="video-wrapper">
-      <video autoplay muted loop playsinline>
-        <source src="/assets/videos/with energy.mp4" type="video/mp4">
-      </video>
       <img src="/assets/images/Beige and Brown Refined Scrapbook Peace Quotes Peace Instagram Post.png" alt="Overlay Image" class="video-overlay-image">
     </div>
   </div>
@@ -783,23 +862,26 @@
         <div class="challenge-cards">
           <div class="challenge">
             <h3>High Energy Theft & Losses</h3>
-            <p>Over 40% of power is lost to theft, illegal connections and unregistered meters, crippling utility revenues.</p>
-          </div>
-          <div class="challenge">
-            <h3>Widespread Tampering & Power Theft</h3>
-            <p>Unregistered meters, illegal connections and ghost billing, especially in peri-urban and rural areas continue to drain resources.</p>
+            <p>Over 30% of electricity in Ghana is lost, largely due to theft, illegal connections, and unregistered meters. ECG reported 32% total losses in 2024, with a significant portion tied to non-technical (commercial) losses. These leakages severely weaken utility revenues and long-term grid stability.</p>
+            <p class="source-text">Source: Energy Commission of Ghana, ACEP</p>
           </div>
           <div class="challenge">
             <h3>Broken Visibility & Data Gaps</h3>
-            <p>Most meters are not linked to specific transformers or poles, making diagnosis and accountability difficult.</p>
+            <p>Most meters were not previously linked to their poles or transformers, making tamper detection and fault tracing difficult. ECG only began implementing a GIS-based grid mapping system in 2022. Prior to this, tens of thousands of meters were effectively invisible in utility systems.</p>
+            <p class="source-text">Source: MCC/ECG GIS project reports</p>
+          </div>
+          <div class="challenge">
+            <h3>Widespread Tampering & Ghost Consumption</h3>
+            <p>Unregistered, diverted, and tampered meters are especially common in rural and peri-urban areas. In one audit, over 10,000 illegal meters were discovered in just one region. Ghost billing and fake meter imports continue to drain resources and damage public trust.</p>
+            <p class="source-text">Source: ACEP audit, ECG/NEDCo reports</p>
           </div>
           <div class="challenge">
             <h3>Manual Processes & Inefficiency</h3>
-            <p>Installations and fault reporting rely on informal contractors, handwritten notes and delayed follow-ups.</p>
+            <p>Installation and fault resolution still rely heavily on informal contractors, handwritten reports, and delayed physical follow-ups. Lack of digital systems reduces accountability and leads to slow response times in both urban and rural deployments.</p>
           </div>
           <div class="challenge">
-            <h3>Customer Frustration</h3>
-            <p>Common complaints include unclear bills, long fault resolution times and no insight into usage or top-ups.</p>
+            <h3>Customer Frustration & Low Trust</h3>
+            <p>Frequent complaints from customers include unclear billing, delays in fault repairs, and no visibility into usage or recharge status. These frustrations fuel illegal connections and reduce payment compliance, further worsening utility losses.</p>
           </div>
         </div>
       </div>
@@ -813,7 +895,7 @@
   </div>
 </section>
 
-<section id="split-feature-card" class="scorecard-feature-split">
+<section id="what-we-are-building" class="scorecard-feature-split">
   <div class="container">
     <div class="scorecard-feature-right">
       <img src="/assets/images/whatwebuilding.png" alt="PowerGridX components overview" />
@@ -831,17 +913,29 @@
   </div>
 </section>
 
-<section class="scorecard-feature-split">
+<section id="why-now" class="scorecard-feature-split">
   <div class="container">
     <div class="scorecard-feature-left">
       <h3>Why Now?</h3>
-      <ul class="feature-points">
-        <li>Traditional meter technology is outdated and easy to tamper with</li>
-        <li>Rising demand for secure, remote management of electricity infrastructure</li>
-        <li>Urgent need to expand access and improve reliability across underserved areas</li>
-        <li><span style="color: #044080; font-weight: 700;">Energy Theft is a Public Cost and a Private Risk:</span> As energy theft and tampering go unchecked, utilities lose revenue and communities lose trust. <br>Every bypassed meter weakens the grid and with Ghana's increasing load demand, even small inefficiencies now create wide-scale outages tomorrow.</li>
-        <li><span style="color: #044080; font-weight: 700;">A Demand for Traceable Infrastructure:</span> PGX is aligned with this shift, offering blockchain-secured logs and transparent service records to help meet ESG, SDG and governance benchmarks.</li>
-      </ul>
+      <div class="challenge-cards">
+        <div class="challenge">
+          <p>Traditional meter technology is outdated and easy to tamper with.</p>
+        </div>
+        <div class="challenge">
+          <p>Rising demand for secure, remote management of electricity infrastructure.</p>
+        </div>
+        <div class="challenge">
+          <p>Urgent need to expand access and improve reliability across underserved areas.</p>
+        </div>
+        <div class="challenge">
+          <h3>Energy Theft is a Public Cost and a Private Risk</h3>
+          <p>As energy theft and tampering go unchecked, utilities lose revenue and communities lose trust. Every bypassed meter weakens the grid and with Ghana's increasing load demand, even small inefficiencies now create wide-scale outages tomorrow.</p>
+        </div>
+        <div class="challenge">
+          <h3>A Demand for Traceable Infrastructure</h3>
+          <p>PGX is aligned with this shift, offering blockchain-secured logs and transparent service records to help meet ESG, SDG and governance benchmarks.</p>
+        </div>
+      </div>
     </div>
     <div class="scorecard-feature-right">
       <video autoplay muted loop playsinline>
@@ -852,21 +946,33 @@
   </div>
 </section>
 
-<section class="scorecard-feature-split why-matters">
+<section id="why-it-matters" class="scorecard-feature-split why-matters">
   <div class="container">
     <div class="scorecard-feature-right">
       <img src="/assets/images/christian-dubovan-gxsRL8B_ZqE-unsplash.jpg" alt="Why PowerGridX Matters visualization" />
     </div>
     <div class="scorecard-feature-left">
       <h3>Why It Matters</h3>
-      <ul class="feature-points">
-        <li>Tamper-resistant meters with transformer-pairing</li>
-        <li>Contractor ID-linked installations</li>
-        <li>Smart poles with passive nodes to detect illegal taps</li>
-        <li>Inclusive USSD & mobile-first recharge access</li>
-        <li>Real-time fault alerts + cloud-integrated logs</li>
-        <li>Audit trail secured by blockchain</li>
-      </ul>
+      <div class="challenge-cards">
+        <div class="challenge">
+          <p>Tamper-resistant meters with transformer-pairing</p>
+        </div>
+        <div class="challenge">
+          <p>Contractor ID-linked installations</p>
+        </div>
+        <div class="challenge">
+          <p>Smart poles with passive nodes to detect illegal taps</p>
+        </div>
+        <div class="challenge">
+          <p>Inclusive USSD & mobile-first recharge access</p>
+        </div>
+        <div class="challenge">
+          <p>Real-time fault alerts + cloud-integrated logs</p>
+        </div>
+        <div class="challenge">
+          <p>Audit trail secured by blockchain</p>
+        </div>
+      </div>
       <p class="impact-note">
         Tackling energy theft, grid unreliability and bill transparency with scalable, modular solutions.
         <br><br>
@@ -880,14 +986,20 @@
   <div class="container">
     <div class="scorecard-feature-left">
       <h3>Impact</h3>
-      <ul class="feature-points">
-        <li><span style="color: #044080; font-weight: 700;">Enable Digital-First Energy Access in Unreached Zones</span><br>
-        PGX is designed to serve peri-urban and rural areas where digital services and infrastructure are often skipped. Our system works with or without high-speed internet, meaning it can empower last-mile users without excluding them.</li>
-        <li><span style="color: #044080; font-weight: 700;">Make Power Management Local and Traceable</span><br>
-        By pairing each meter with a contractor, pole, and community dashboard, PGX decentralizes grid visibility, so local workers are accountable, and local users are informed. This flips the trust model from top-down to community-first.</li>
-        <li><span style="color: #044080; font-weight: 700;">Build the Foundation for Smart Grid Readiness in West Africa</span><br>
-        PGX doesn't just fix tampering, it lays the groundwork for a smart energy future: from load forecasting to community-level energy analytics. It's a step toward resilient, self-regulating grids.</li>
-      </ul>
+      <div class="challenge-cards">
+        <div class="challenge">
+          <h3>Enable Digital-First Energy Access in Unreached Zones</h3>
+          <p>PGX is designed to serve peri-urban and rural areas where digital services and infrastructure are often skipped. Our system works with or without high-speed internet, meaning it can empower last-mile users without excluding them.</p>
+        </div>
+        <div class="challenge">
+          <h3>Make Power Management Local and Traceable</h3>
+          <p>By pairing each meter with a contractor, pole, and community dashboard, PGX decentralizes grid visibility, so local workers are accountable, and local users are informed. This flips the trust model from top-down to community-first.</p>
+        </div>
+        <div class="challenge">
+          <h3>Build the Foundation for Smart Grid Readiness in West Africa</h3>
+          <p>PGX doesn't just fix tampering, it lays the groundwork for a smart energy future: from load forecasting to community-level energy analytics. It's a step toward resilient, self-regulating grids.</p>
+        </div>
+      </div>
     </div>
     <div class="scorecard-feature-right">
       <img src="/assets/images/andreas-gucklhorn-Ilpf2eUPpUE-unsplash.jpg" alt="Impact statistics and field results" />
@@ -895,7 +1007,7 @@
   </div>
 </section>
 
-<section id="key components">
+<section id="key-components">
   <div class="container">
     <h2 class="section-title">Key Components</h2>
   </div>
@@ -977,7 +1089,7 @@ and billing transparency.</p>
   </div>
 </section>
 
-<section id="architecture designs">
+<section id="architecture-designs">
   <div class="container spotlight-card">
     <div class="spotlight-content">
       <h3>PowerGridX Architecture</h3>
@@ -1063,7 +1175,7 @@ and billing transparency.</p>
   </div>
 </section>
 
-<section id="proof of intent">
+<section id="proof-of-intent">
   <div class="container spotlight-card">
     <div class="spotlight-content">
       <h3>Proof of Intent</h3>
@@ -1079,7 +1191,7 @@ Real users, contractors, and partners are submitting their intent to participate
 </section>
 </section>
 
-<section id="use case">
+<section id="use-case">
   <div class="container">
     <h2 class="section-title">Use Case</h2>
   </div>
