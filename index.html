@@ -245,6 +245,16 @@
       margin-bottom: 1.2rem;
     }
     
+    .use-case {
+      background-color: #f8f9fa;
+      padding: 0.75rem;
+      border-left: 4px solid #044080;
+      margin-top: 0.5rem;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.9rem;
+      color: #495057;
+    }
+    
     .feature-points {
       list-style: none;
       padding-left: 0;
@@ -791,6 +801,104 @@
       height: 75vh; /* Increased height for the iframe */
       border: none;
     }
+
+    .founder-text strong {
+      color: #044080;
+    }
+
+    .components-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .component-card {
+      background-color: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .component-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1), 0 0 20px rgba(250, 70, 22, 0.4);
+    }
+
+    .component-card h3 {
+      font-size: 1.5rem;
+      color: #044080;
+      margin-bottom: 1rem;
+    }
+
+    .component-card p {
+      color: #495057;
+      margin-bottom: 1rem;
+    }
+
+    .component-card ul {
+      list-style-position: inside;
+      padding-left: 0;
+      color: #495057;
+    }
+
+    .component-card li {
+      margin-bottom: 0.5rem;
+    }
+
+    .content-card-section {
+      padding: 3rem 0;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .content-card-section .container {
+      background-color: #ffffff;
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      /* transition: transform 0.3s, box-shadow 0.3s; */
+    }
+
+    /*
+    .content-card-section .container:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 0 20px rgba(250, 70, 22, 0.4);
+    }
+    */
+
+    .content-card-section .card-text {
+      flex: 1 1 50%;
+    }
+
+    .content-card-section .card-text h3 {
+      color: #044080;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .content-card-section .card-image {
+      flex: 1 1 50%;
+      text-align: center;
+    }
+    
+    .content-card-section .card-image img {
+      max-width: 100%;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .content-card-section .container {
+        flex-direction: column;
+        padding: 2rem;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body style="background-color: #f0f0f0;">
@@ -805,17 +913,11 @@
       <nav class="navbar">
         <a href="#overview">Overview</a>
         <a href="#challenges">Challenges</a>
-        <a href="#what-we-are-building">What We're Building</a>
-        <a href="#why-now">Why Now?</a>
-        <a href="#why-it-matters">Why It Matters</a>
         <a href="#impact">Impact</a>
-        <a href="#key-components">Key Components</a>
-        <a href="#architecture-designs">Architecture Designs</a>
-        <a href="#interfaces">Interfaces</a>
+        <a href="#key-components">Components</a>
         <a href="#proof-of-intent">Proof of Intent</a>
-        <a href="#use-case">Use Case</a>
+        <a href="#future-capabilities">Future Capabilities</a>
         <a href="#about">About</a>
-        <a href="#contact">Contact</a>
         <a href="#feedback" class="floating-feedback">Feedback</a>
       </nav>
     </div>
@@ -832,7 +934,7 @@
 
   <section id="overview" class="intro">
     <div class="container">
-      <h2>Introduction</h2>
+      <h2 style="color: #044080;">Introduction</h2>
       <p><span class="brand-blue">PowerGrid</span><span class="brand-orange">X</span> is a smart infrastructure initiative addressing energy access across underserved African communities. Using tamper resistant smart meters, renewable smart poles and mobile first systems, we drive down inefficiency, theft, and outages.</p>
       <p>Our platform delivers real-time asset visibility, secure contractor tools and accessible recharge options empowering utilities, technicians and residents alike.</p>
     </div>
@@ -982,288 +1084,183 @@
   </div>
 </section>
 
-<section id="impact" class="scorecard-feature-split">
+<section id="impact" style="padding: 4rem 0; background-color: #f8f9fa;">
   <div class="container">
-    <div class="scorecard-feature-left">
-      <h3>Impact</h3>
-      <div class="challenge-cards">
-        <div class="challenge">
-          <h3>Enable Digital-First Energy Access in Unreached Zones</h3>
-          <p>PGX is designed to serve peri-urban and rural areas where digital services and infrastructure are often skipped. Our system works with or without high-speed internet, meaning it can empower last-mile users without excluding them.</p>
-        </div>
-        <div class="challenge">
-          <h3>Make Power Management Local and Traceable</h3>
-          <p>By pairing each meter with a contractor, pole, and community dashboard, PGX decentralizes grid visibility, so local workers are accountable, and local users are informed. This flips the trust model from top-down to community-first.</p>
-        </div>
-        <div class="challenge">
-          <h3>Build the Foundation for Smart Grid Readiness in West Africa</h3>
-          <p>PGX doesn't just fix tampering, it lays the groundwork for a smart energy future: from load forecasting to community-level energy analytics. It's a step toward resilient, self-regulating grids.</p>
-        </div>
+    <h2 class="section-title">Impact</h2>
+    <div class="components-grid">
+      <div class="component-card">
+        <h3>Enable Digital-First Energy Access in Unreached Zones</h3>
+        <p>PGX is designed to serve peri-urban and rural areas where digital services and infrastructure are often skipped. Our system works with or without high-speed internet, meaning it can empower last-mile users without excluding them.</p>
+      </div>
+
+      <div class="component-card">
+        <h3>Make Power Management Local and Traceable</h3>
+        <p>By pairing each meter with a contractor, pole, and community dashboard, PGX decentralizes grid visibility, so local workers are accountable, and local users are informed. This flips the trust model from top-down to community-first.</p>
+      </div>
+
+      <div class="component-card">
+        <h3>Build the Foundation for Smart Grid Readiness in West Africa</h3>
+        <p>PGX doesn't just fix tampering, it lays the groundwork for a smart energy future: from load forecasting to community-level energy analytics. It's a step toward resilient, self-regulating grids.</p>
       </div>
     </div>
-    <div class="scorecard-feature-right">
-      <img src="/assets/images/andreas-gucklhorn-Ilpf2eUPpUE-unsplash.jpg" alt="Impact statistics and field results" />
-    </div>
   </div>
 </section>
 
-<section id="key-components">
+<section id="key-components" style="padding: 4rem 0; background-color: #ffffff;">
   <div class="container">
     <h2 class="section-title">Key Components</h2>
-  </div>
-<section class="tech-spotlight">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>Smart Meter</h3>
-      <p class="spotlight-lead">Tamper-Resistant, Digitally Secured</p>
-      <ul>
-        <li>Embedded tamper sensors</li>
-        <li>Transformer-authenticated pairing</li>
-        <li>LoRaWAN/Satellite-ready</li>
-        <li>USSD + mobile top-up</li>
-        <li>Blockchain monitoring enabled</li>
-      </ul>
-    </div>
-    <div class="spotlight-image">
-      <img src="smart-meter.png" alt="In Progress" class="oversized-img" />
-    </div>
-  </div>
-</section>
-
-<section class="tech-spotlight">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>Smart Pole</h3>
-      <ul>
-        <li>Solar + battery backup</li>
-        <li>Dual LED lighting</li>
-        <li>LoRa base node placement</li>
-        <li>Optional/Future Integation: mosquito repelling tech</li>
-        <li>Blockchain monitoring enabled</li>
-      </ul>
-    </div>
-    <div class="spotlight-image">
-      <img src="smart-meter.png" alt="In Progress" class="oversized-img"/>
-    </div>
-  </div>
-</section>
-
-<section class="tech-spotlight">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>Passive Smart Nodes</h3>
-      <p class="spotlight-lead">Tamper-Resistant, Digitally Secured</p>
-      <ul>
-        <li>Embedded tamper sensors</li>
-        <li>Transformer-authenticated pairing</li>
-        <li>LoRaWAN/Satellite-ready</li>
-        <li>USSD + mobile top-up</li>
-        <li>Blockchain monitoring enabled</li>
-      </ul>
-    </div>
-    <div class="spotlight-image">
-      <img src="smart-meter.png" alt="In Progress" class="oversized-img"/>
-    </div>
-  </div>
-</section>
-
-<section class="tech-spotlight">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>Mini Grid</h3>
-      <p class="spotlight-lead">PGX can integrate with or support mini grids in off-grid rural areas by:
-</p>
-      <ul>
-        <li>Using smart poles + renewable solar as localized energy nodes</li>
-        <li>Deploying PGX meters for accurate usage & micro payments</li>
-        <li>Enabling USSD/mobile recharge for offline or low connectivity regions</li>
-        <li>Allowing PGX cloud + blockchain to monitor usage, payments and faults remotely</li>
+    <div class="components-grid">
+      <div class="component-card">
+        <h3>Smart Meter</h3>
+        <p>Tamper-Resistant, Digitally Secured</p>
+        <ul>
+          <li>Embedded tamper sensors</li>
+          <li>Transformer-authenticated pairing</li>
+          <li>LoRaWAN/Satellite-ready</li>
+          <li>USSD + mobile top-up</li>
+          <li>Blockchain monitoring enabled</li>
         </ul>
-        <p>This allows communities to run local generation while maintaining digital energy records 
-and billing transparency.</p>
-    </div>
-    <div class="spotlight-image">
-      <img src="/assets/images/credit-Husk-power.jpg" alt="User UI" class="oversized-img" />
-      <p class="photo-credit">Photo Credit: Husk Power</p>
+      </div>
+
+      <div class="component-card">
+        <h3>Smart Pole</h3>
+        <p>A multi-purpose, solar-powered infrastructure node.</p>
+        <ul>
+          <li>Solar + battery backup</li>
+          <li>Dual LED public lighting</li>
+          <li>LoRa base node placement</li>
+          <li>Optional: mosquito-repelling tech</li>
+          <li>Blockchain monitoring enabled</li>
+        </ul>
+      </div>
+
+      <div class="component-card">
+        <h3>Passive Smart Nodes (PSN)</h3>
+        <p>Small, low-cost nodes for real-time grid monitoring.</p>
+        <ul>
+          <li>Monitors voltage, current, and line activity</li>
+          <li>Detects illegal connections and faults</li>
+          <li>Sends data via LoRa to the cloud</li>
+          <li>Solar-powered and easy to install</li>
+        </ul>
+      </div>
+
+      <div class="component-card">
+        <h3>Mini Grid Integration</h3>
+        <p>PGX can integrate with or support mini-grids in off-grid rural areas.</p>
+        <ul>
+          <li>Smart poles act as localized energy nodes</li>
+          <li>PGX meters for accurate usage & micropayments</li>
+          <li>USSD/mobile recharge for offline regions</li>
+          <li>Remote monitoring of usage, payments, and faults</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="architecture-designs">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>PowerGridX Architecture</h3>
-      <p class="spotlight-lead">The full PowerGridX system integrates smart meters, smart poles, PSNs, mini grid, cloud backend and blockchain. <br> Data is securely relayed from meters and poles to the cloud and immutable blockchain, enabling real-time monitoring and secure top-up.</p>
-    </div>
-    <div class="spotlight-image">
-      <img src="/assets/images/PowerGridX_Architecture.svg" alt="User UI" class="oversized-img"/>
-    </div>
-  </div>
-</section>
-
-<section class="tech-spotlight">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>Passive Smart Nodes (PNS) Architecture</h3>
-      <p class="spotlight-lead">Passive Smart Nodes (PSNs) are small solar powered nodes installed on existing poles and power lines.</p>
-      <ul>
-        <li>It monitors voltage, current and line activity in real time.</li>
-        <li>  Sends data via LoRa to cloud.</li>
-      </ul>
-    </div>
-    <div class="spotlight-image">
-      <img src="/assets/images/PGX_PSN.svg" alt="User UI" class="oversized-img" />
-    </div>
-  </div>
-</section>
-
-<section id="interfaces">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>User Interface</h3>
-      <p class="spotlight-lead">Offers: </p>
-      <ul>
-        <li>Live usage updates (voltage, power, estimated billing)</li>
-        <li>Tamper alerts and outage reports</li>
-        <li>Seamless mobile/USSD top-ups</li>
-        <li>Transaction history + receipt download</li>
-        <li>Smart alerts: when credit is low, faults occur, or service is due</li>
-      </ul>
-      <p>This can be accessed via a mobile app or USSD, ensuring inclusivity even without smartphones.</p>
-    </div>
-    <div class="spotlight-image image-with-button">
-  <img src="smart-meter.png" alt="User UI" class="oversized-img" />
-  <button class="image-button" onclick="openModal('userModal')">View User Interface</button>
-</div>
-
-<!-- User Simulation Modal -->
-<div id="userModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal('userModal')">&times;</span>
-    <iframe src="user-simulation.html" frameborder="0"></iframe>
-  </div>
-</div>
-  </div>
-</section>
-
-<section class="tech-spotlight">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>Contractor Interface</h3>
-      <p class="spotlight-lead">Licensed contractors use the PGX portal to: </p>
-      <ul>
-        <li>Authenticate themselves via QR or biometric login</li>
-        <li>View assigned installations or maintenance jobs</li>
-        <li>Scan and pair meters with specific poles/transformers</li>
-        <li>Upload photos, GPS locations, and fault status</li>
-        <li>Submit reports directly to the PGX cloud (for ECG/BPS review)</li>
-      </ul>
-      <p>Every meter action is logged and tied to the contractor's ID to ensure full traceability.</p>
-    </div>
-<div class="spotlight-image image-with-button">
-  <img src="/assets/images/Beige and Brown Refined Scrapbook Peace Quotes Peace Instagram Post (1).png" alt="User UI" class="oversized-img" />
-  <button class="image-button" onclick="openModal('contractorModal')">View Contractor Interface</button>
-</div>
-
-<!-- Contractor Simulation Modal -->
-<div id="contractorModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal('contractorModal')">&times;</span>
-    <iframe src="/user-ui/contractor_ui.html" frameborder="0"></iframe>
-  </div>
-</div>
-  </div>
-</section>
-
-<section id="proof-of-intent">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>Proof of Intent</h3>
-      <p class="spotlight-lead">Proofs are being received via Typeform. <br>
-Real users, contractors, and partners are submitting their intent to participate in PGX pilots via Typeform.
- </p>
-</div>
-<div class="spotlight-image image-with-button">
-  <img src="/smart-meter.png" alt="User UI" class="oversized-img" />
-  <button class="image-button" onclick="window.open('https://form.typeform.com/report/fp9OeJsI/ywAzf1v7Ll7VLuvH', '_blank')">View Intent of Proof</button>
-</div>
-  </div>
-</section>
-</section>
-
-<section id="use-case">
+<section id="architecture-designs" class="content-card-section">
   <div class="container">
-    <h2 class="section-title">Use Case</h2>
-  </div>
-<section class="tech-spotlight">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>Maame Ama the Landlord</h3>
-       <p class="spotlight-lead">Here's how PGX is designed to help people like her. Maame Ama uses the PGX App to check her energy usage tracking. She is able to: </p>
-      <ul>
-        <li>View her energy usage in real-time</li>
-        <li>Recharge her balance via USSD or mobile app</li>
-        <li>Receive alerts for low credit and outages</li>
-        <li>Report faults directly from the app</li>
-        <li>Track her energy costs transparently</li>
-      </ul>
+    <div class="card-text">
+      <h3>PowerGridX Architecture</h3>
+      <p>The full PowerGridX system integrates smart meters, smart poles, PSNs, mini grid, cloud backend and blockchain. Data is securely relayed from meters and poles to the cloud and immutable blockchain, enabling real-time monitoring and secure top-up.</p>
     </div>
-    <div class="spotlight-image">
-      <img src="/assets/images/Maame Ama UI Image.png" alt="User UI" class="oversized-img" />
+    <div class="card-image">
+      <img src="/assets/images/PowerGridX_Architecture.svg" alt="PowerGridX Architecture Diagram"/>
     </div>
   </div>
 </section>
 
-<section class="tech-spotlight">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>Admin View</h3>
-       <p class="spotlight-lead">Here's how PGX is designed to help Utility Companies <br>From the PGX dashboard, ECG staff/Data Center staff spot unusual activity or tampering in real-time, assign a lincensed contractor and audit all actions transparently. </p>
+<section class="content-card-section">
+  <div class="container">
+    <div class="card-text">
+      <h3>Passive Smart Nodes (PSN) Architecture</h3>
+      <p>Passive Smart Nodes (PSNs) are small solar powered nodes installed on existing poles and power lines. They monitor voltage, current and line activity in real time and send data via LoRa to the cloud.</p>
     </div>
-    <div class="spotlight-image">
-      <img src="/assets/images/Admin copilot.png" alt="User UI" class="oversized-img" />
+    <div class="card-image">
+      <img src="/assets/images/PGX_PSN.svg" alt="Passive Smart Node Architecture Diagram" />
     </div>
   </div>
 </section>
 
-<section class="tech-spotlight">
-  <div class="container spotlight-card">
-    <div class="spotlight-content">
-      <h3>Akua the Field Engineer</h3>
-      <p class="spotlight-lead">Here's how PGX is designed to help people like her. <br>Akua uses the PGX App to install meters, scan poles and report faults. Her work is faster, traceable and blockchain-logged. </p>
-    </div>
-    <div class="spotlight-image">
-      <img src="/assets/images/Contractor image.png" alt="User UI" class="oversized-img" />
+<section id="interfaces" class="content-card-section">
+  <div class="container" style="display: block; text-align: center;">
+    <div class="card-text">
+      <h3>User Interface</h3>
+      <p>Our mobile-first interface allows users to track usage, receive tamper alerts, top-up credit via USSD or mobile app, and report faults. Accessible and intuitive for everyone.</p>
+      <button class="image-button" onclick="openModal('userModal')">View User Interface</button>
     </div>
   </div>
 </section>
-  </section>
 
-  <section id="about">
-<div class="founder-bio" id="about">
-  <div class="container founder-flex">
-    <img src="/assets/images/Founder2.jpg" alt="Sandra Mensah" class="founder-img" />
-    <div class="founder-text">
-      <h2>About</h2>
-      <p><span class="brand-blue">PowerGrid</span><span class="brand-orange">X</span> is a next-generation grid monitoring and anti-tamper metering platform purpose-built for Africa. By combining secure hardware, blockchain technology, and low-cost IoT, we aim to deliver trustworthy, scalable electricity access for all.
-      </p>
+<section class="content-card-section">
+  <div class="container">
+    <div class="card-text">
+      <h3>Contractor Interface</h3>
+      <p>Licensed contractors use the PGX portal to authenticate, view jobs, scan and pair meters, and submit geo-tagged, blockchain-logged reports, ensuring full traceability of all actions.</p>
+      <button class="image-button" onclick="openModal('contractorModal')">View Contractor Interface</button>
+    </div>
+    <div class="card-image">
+      <img src="/assets/images/Contractor.png" alt="Contractor Interface" />
+       <p style="font-size: 0.8rem; text-align: right; color: #6c757d; margin-top: 0.5rem;">Photo Credit: The World Bank</p>
+    </div>
+  </div>
+</section>
+
+<section id="proof-of-intent" class="content-card-section">
+  <div class="container" style="display: block; text-align: center;">
+    <div class="card-text">
+      <h3>Proof of Intent</h3>
+      <p>Real users, contractors, and partners are submitting their intent to participate in PGX pilots. See the interest we're gathering from the community.</p>
+      <button class="image-button" onclick="window.open('https://form.typeform.com/report/fp9OeJsI/ywAzf1v7Ll7VLuvH', '_blank')">View Proof of Intent</button>
+    </div>
+  </div>
+</section>
+
+<section id="use-case" style="padding: 4rem 0; background-color: #ffffff;">
+  <div class="container">
+    <h2 class="section-title">Use Cases & Success Stories</h2>
+    <div class="components-grid">
+      <div class="component-card">
+        <h3>Maame Ama, Landlord</h3>
+        <p>Maame Ama owns a compound house and struggles with tenants not paying their electricity bills on time. With PGX, she can monitor each unit's consumption, receive low-credit alerts, and ensure tenants top-up via USSD, preventing unpaid bills and disputes.</p>
+        <img src="/assets/images/Maame Ama UI Image.png" alt="Use Case Story" style="width: 100%; border-radius: 8px; margin-top: 1rem;" />
+      </div>
+
+      <div class="component-card">
+        <h3>Akua, Field Engineer</h3>
+        <p>Akua is a licensed contractor who used to spend hours on manual installation reports. With the PGX app, she scans meters, pairs them with poles instantly, and submits geo-tagged, blockchain-logged reports in minutes, improving her efficiency and providing a verifiable work history.</p>
+        <img src="/assets/images/Contractor image.png" alt="Use Case Story" style="width: 100%; border-radius: 8px; margin-top: 1rem;" />
+      </div>
+
+      <div class="component-card">
+        <h3>Admin View, Utility Co.</h3>
+        <p>From the PGX dashboard, utility staff can spot unusual activity or tampering in real-time, assign a licensed contractor for maintenance, and audit all actions transparently. This reduces losses and improves grid management.</p>
+        <img src="/assets/images/Admin copilot.png" alt="Admin Dashboard" style="width: 100%; border-radius: 8px; margin-top: 1rem;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="content-card-section">
+  <div class="container">
+    <div class="card-image">
+      <img src="/assets/images/Founder2.jpg" alt="Sandra Mensah" class="founder-img" style="border-radius: 50%; width: 250px; height: 250px; object-fit: cover;" />
+    </div>
+    <div class="card-text">
+      <h3 style="color: #044080;">About The Founder</h3>
       <p>
         Founded by <strong>Sandra Mensah</strong>, PowerGridX reflects her deep commitment to community-first innovation, infrastructure integrity, and energy equity. She's currently seeking aligned partners, advisors, and early supporters passionate about the future of reliable energy in Africa.
       </p>
     </div>
   </div>
-</div>
 </section>
-<section id="contact">
-  <div class="container contact-block">
-    <h2>Contact Us</h2>
-    <p>
-      We're inviting early collaborators: local utilities, off-grid communities, NGOs, regulators and energy-forward investors.
-    </p>
-    <p>
-      If you're interested in piloting PGX or supporting its mission, let's connect. 🚀
-    </p>
-    <div class="contact-actions">
+
+<section id="contact" class="content-card-section">
+  <div class="container" style="display: block; text-align: center;">
+    <h3 style="color: #044080;">Contact Us</h3>
+    <p>We're inviting early collaborators: local utilities, off-grid communities, NGOs, regulators and energy-forward investors. If you're interested in piloting PGX or supporting its mission, let's connect. 🚀</p>
+    <div class="contact-actions" style="margin-top: 1.5rem;">
       <a href="mailto:powergridx.energy@gmail.com" class="btn-contact">Email Us</a>
       <a href="https://www.linkedin.com/in/sandra-mensah-4a2852236/" class="btn-contact" target="_blank">Connect on LinkedIn</a>
     </div>
@@ -1315,9 +1312,7 @@ Real users, contractors, and partners are submitting their intent to participate
       <h3>Send Us Feedback</h3>
 
       <label for="name">Name</label>
-      <input type="text" id="name" name="name" required />
-
-      <label for="email">Email</label>
+      <input type="text" id="name" name="name" require      <label for="email">Email</label>
       <input type="email" id="email" name="email" required />
 
       <label for="message">Message</label>
