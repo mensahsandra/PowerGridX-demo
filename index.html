@@ -18,6 +18,7 @@
       background-color: #ffffff;
       color: #1b1b1b;
       line-height: 1.6;
+      overflow-x: hidden;
     }
     
     .container {
@@ -899,6 +900,40 @@
         text-align: center;
       }
     }
+
+    .future-features-grid {
+      max-width: 100vw;
+      box-sizing: border-box;
+    }
+
+    .future-feature-card.interactive-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(4,64,128,0.07);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s, background 0.3s;
+      cursor: pointer;
+      outline: none;
+    }
+    .future-feature-card.interactive-card:hover, .future-feature-card.interactive-card:focus {
+      background: #fff;
+      color: #044080;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1), 0 0 20px rgba(250, 70, 22, 0.4);
+    }
+    .future-feature-card.interactive-card:hover h3, .future-feature-card.interactive-card:focus h3 {
+      color: #fff;
+    }
+    .future-feature-card.interactive-card:hover ul, .future-feature-card.interactive-card:focus ul {
+      color: #fff;
+    }
+    .future-feature-card.interactive-card span {
+      font-size: 2rem;
+    }
   </style>
 </head>
 <body style="background-color: #f0f0f0;">
@@ -964,7 +999,7 @@
         <div class="challenge-cards">
           <div class="challenge">
             <h3>High Energy Theft & Losses</h3>
-            <p>Over 30% of electricity in Ghana is lost, largely due to theft, illegal connections, and unregistered meters. ECG reported 32% total losses in 2024, with a significant portion tied to non-technical (commercial) losses. These leakages severely weaken utility revenues and long-term grid stability.</p>
+            <p>Over 30% of electricity in Ghana is lost, largely due to theft, illegal connections and unregistered meters. ECG reported 32% total losses in 2024, with a significant portion tied to non-technical (commercial) losses. These leakages severely weaken utility revenues and long-term grid stability.</p>
             <p class="source-text">Source: Energy Commission of Ghana, ACEP</p>
           </div>
           <div class="challenge">
@@ -979,11 +1014,11 @@
           </div>
           <div class="challenge">
             <h3>Manual Processes & Inefficiency</h3>
-            <p>Installation and fault resolution still rely heavily on informal contractors, handwritten reports, and delayed physical follow-ups. Lack of digital systems reduces accountability and leads to slow response times in both urban and rural deployments.</p>
+            <p>Installation and fault resolution still rely heavily on informal contractors, handwritten reports and delayed physical follow-ups. Lack of digital systems reduces accountability and leads to slow response times in both urban and rural deployments.</p>
           </div>
           <div class="challenge">
             <h3>Customer Frustration & Low Trust</h3>
-            <p>Frequent complaints from customers include unclear billing, delays in fault repairs, and no visibility into usage or recharge status. These frustrations fuel illegal connections and reduce payment compliance, further worsening utility losses.</p>
+            <p>Frequent complaints from customers include unclear billing, delays in fault repairs and no visibility into usage or recharge status. These frustrations fuel illegal connections and reduce payment compliance, further worsening utility losses.</p>
           </div>
         </div>
       </div>
@@ -1095,7 +1130,7 @@
 
       <div class="component-card">
         <h3>Make Power Management Local and Traceable</h3>
-        <p>By pairing each meter with a contractor, pole, and community dashboard, PGX decentralizes grid visibility, so local workers are accountable, and local users are informed. This flips the trust model from top-down to community-first.</p>
+        <p>By pairing each meter with a contractor, pole and community dashboard, PGX decentralizes grid visibility, so local workers are accountable, and local users are informed. This flips the trust model from top-down to community-first.</p>
       </div>
 
       <div class="component-card">
@@ -1137,7 +1172,7 @@
       <div class="component-card">
         <h3>Passive Smart Nodes (PSN)</h3>
         <p>Small, low-cost nodes for real-time grid monitoring.</p>
-        <ul>
+      <ul>
           <li>Monitors voltage, current, and line activity</li>
           <li>Detects illegal connections and faults</li>
           <li>Sends data via LoRa to the cloud</li>
@@ -1148,14 +1183,76 @@
       <div class="component-card">
         <h3>Mini Grid Integration</h3>
         <p>PGX can integrate with or support mini-grids in off-grid rural areas.</p>
-        <ul>
+      <ul>
           <li>Smart poles act as localized energy nodes</li>
           <li>PGX meters for accurate usage & micropayments</li>
           <li>USSD/mobile recharge for offline regions</li>
           <li>Remote monitoring of usage, payments, and faults</li>
+      </ul>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- Future Capabilities Section (Interactive Cards) -->
+<section id="future-capabilities" style="padding: 4rem 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+  <div class="container">
+    <h2 class="section-title">Future Capabilities</h2>
+    <p style="max-width: 700px; margin: 0 auto 2.5rem auto; text-align: center; color: #444; font-size: 1.15rem;">
+      At PowerGridX, we're designing a smart energy system that grows with the needs of communities and utilities. These features will be rolled out in phases as we grow and pilot:
+    </p>
+    <div class="future-features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto;">
+      <div class="future-feature-card interactive-card" tabindex="0">
+        <span style="font-size: 2rem;">🤖</span>
+        <h3 style="color: #044080; font-size: 1.2rem; margin-bottom: 0.5rem;">AI-Powered Grid Intelligence</h3>
+        <ul style="color: #333; font-size: 1rem; padding-left: 1.2rem;">
+          <li>Detects abnormal consumption patterns to flag theft or technical issues</li>
+          <li>Learns from usage trends to optimize energy delivery</li>
+          <li>Predicts faults before they happen, reducing outages</li>
         </ul>
     </div>
+      <div class="future-feature-card interactive-card" tabindex="0">
+        <span style="font-size: 2rem;">📡</span>
+        <h3 style="color: #044080; font-size: 1.2rem; margin-bottom: 0.5rem;">Smart Maintenance & Real-Time Alerts</h3>
+        <ul style="color: #333; font-size: 1rem; padding-left: 1.2rem;">
+          <li>Automatically sends fault alerts from meters and poles</li>
+          <li>Prioritizes urgent issues for faster contractor response</li>
+          <li>Enables predictive servicing based on real-time data</li>
+        </ul>
     </div>
+      <div class="future-feature-card interactive-card" tabindex="0">
+        <span style="font-size: 2rem;">💬</span>
+        <h3 style="color: #044080; font-size: 1.2rem; margin-bottom: 0.5rem;">SMS/USSD Fault Classification</h3>
+        <ul style="color: #333; font-size: 1rem; padding-left: 1.2rem;">
+          <li>Analyzes customer messages to detect likely root causes</li>
+          <li>Helps categorize issues (transformer vs. meter vs. line)</li>
+          <li>Streamlines rural fault reporting where apps aren't used</li>
+        </ul>
+      </div>
+      <div class="future-feature-card interactive-card" tabindex="0">
+        <span style="font-size: 2rem;">🌍</span>
+        <h3 style="color: #044080; font-size: 1.2rem; margin-bottom: 0.5rem;">Modular Mini-Grids + Renewable Integration</h3>
+        <ul style="color: #333; font-size: 1rem; padding-left: 1.2rem;">
+          <li>Plug-and-play solar or wind mini-grids for off-grid communities</li>
+          <li>Works seamlessly with PGX meters, poles, and passive nodes</li>
+          <li>Enables cleaner, decentralized energy delivery at scale</li>
+        </ul>
+      </div>
+      <div class="future-feature-card interactive-card" tabindex="0">
+        <span style="font-size: 2rem;">🔐</span>
+        <h3 style="color: #044080; font-size: 1.2rem; margin-bottom: 0.5rem;">Blockchain-Backed Trust Layer</h3>
+        <ul style="color: #333; font-size: 1rem; padding-left: 1.2rem;">
+          <li>Logs installations, payments, and user actions securely</li>
+          <li>Prevents ghost meters and fake top-ups</li>
+          <li>Verifies contractors and system interactions</li>
+        </ul>
+      </div>
+    </div>
+    <p style="text-align: center; color: #666; margin-top: 2.5rem; font-size: 1rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+      ⚙️ These features are designed into PGX's architecture and will be activated based on data availability and deployment scale. We begin with AI anomaly detection and SMS triage tools in the pilot phase.<br><br>
+      <span style="color: #333; font-size: 1.05rem;">This means once the pilot is live, we'll activate two smart features right away:<br>
+      <b>AI-powered anomaly detection</b> to flag possible theft or faults, and an <b>SMS triage tool</b> to help classify and respond to customer fault reports faster.</span>
+    </p>
   </div>
 </section>
 
@@ -1175,7 +1272,7 @@
   <div class="container">
     <div class="card-text">
       <h3>Passive Smart Nodes (PSN) Architecture</h3>
-      <p>Passive Smart Nodes (PSNs) are small solar powered nodes installed on existing poles and power lines. They monitor voltage, current and line activity in real time and send data via LoRa to the cloud.</p>
+      <p>Passive Smart Nodes (PSNs) are small solar powered nodes installed on existing poles and power lines. They monitor voltage, current and line activity in real time also, and sends data via LoRa to the cloud.</p>
     </div>
     <div class="card-image">
       <img src="/assets/images/PGX_PSN.svg" alt="Passive Smart Node Architecture Diagram" />
@@ -1197,7 +1294,7 @@
   <div class="container">
     <div class="card-text">
       <h3>Contractor Interface</h3>
-      <p>Licensed contractors use the PGX portal to authenticate, view jobs, scan and pair meters, and submit geo-tagged, blockchain-logged reports, ensuring full traceability of all actions.</p>
+      <p>Licensed contractors use the PGX portal to authenticate, view jobs, scan, pair meters and submit geo-tagged, blockchain-logged reports, ensuring full traceability of all actions.</p>
   <button class="image-button" onclick="openModal('contractorModal')">View Contractor Interface</button>
 </div>
     <div class="card-image">
@@ -1211,7 +1308,7 @@
   <div class="container" style="display: block; text-align: center;">
     <div class="card-text">
       <h3>Proof of Intent</h3>
-      <p>Real users, contractors, and partners are submitting their intent to participate in PGX pilots. See the interest we're gathering from the community.</p>
+      <p>Real users, contractors and partners are submitting their intent to participate in PGX pilots. See the interest we're gathering from the community.</p>
       <button class="image-button" onclick="window.open('https://form.typeform.com/report/fp9OeJsI/ywAzf1v7Ll7VLuvH', '_blank')">View Proof of Intent</button>
 </div>
   </div>
@@ -1223,13 +1320,13 @@
     <div class="components-grid">
       <div class="component-card">
         <h3>Maame Ama, Landlord</h3>
-        <p>Maame Ama owns a compound house and struggles with tenants not paying their electricity bills on time. With PGX, she can monitor each unit's consumption, receive low-credit alerts, and ensure tenants top-up via USSD, preventing unpaid bills and disputes.</p>
+        <p>Maame Ama owns a compound house and struggles with tenants not paying their electricity bills on time. With PGX, she can monitor each unit's consumption, receive low-credit alerts and ensure tenants top-up via USSD, preventing unpaid bills and disputes.</p>
         <img src="/assets/images/Maame Ama UI Image.png" alt="Use Case Story" style="width: 100%; border-radius: 8px; margin-top: 1rem;" />
   </div>
 
       <div class="component-card">
         <h3>Akua, Field Engineer</h3>
-        <p>Akua is a licensed contractor who used to spend hours on manual installation reports. With the PGX app, she scans meters, pairs them with poles instantly, and submits geo-tagged, blockchain-logged reports in minutes, improving her efficiency and providing a verifiable work history.</p>
+        <p>Akua is a licensed contractor who used to spend hours on manual installation reports. With the PGX app, she scans meters, pairs them with poles instantly and submits geo-tagged, blockchain-logged reports in minutes, improving her efficiency and providing a verifiable work history.</p>
         <img src="/assets/images/Contractor image.png" alt="Use Case Story" style="width: 100%; border-radius: 8px; margin-top: 1rem;" />
     </div>
 
@@ -1454,5 +1551,6 @@
     }
   }
 </script>
+
 </body>
 </html>
