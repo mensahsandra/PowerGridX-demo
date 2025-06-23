@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to PowerGridX</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 680px;
+            background: #000000;
+            border-radius: 40px;
+            padding: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .welcome-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: auto;
+            height: 100%;
+            min-width: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .welcome-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 26, 51, 0.6);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .header-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-welcome {
+            width: 50px;
+        }
+
+        .brand-heading {
+            font-size: 30px;
+            font-weight: 700;
+        }
+        .brand-heading .brand-blue {
+            color: #044080;
+        }
+        .brand-heading .brand-orange {
+            color: #fa4616;
+        }
+
+        .welcome-message {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .benefit-display {
+            font-size: 22px;
+            height: 50px; /* Fixed height for text */
+            font-weight: 500;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+        }
+
+        .enter-btn {
+            width: 90%;
+            padding: 16px 20px;
+            background: linear-gradient(90deg, #043E7B 0%, #032951 50%, #031C37 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 3;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .enter-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(4, 62, 123, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="phone-screen">
+            <div class="welcome-container">
+                <video autoplay loop muted playsinline class="video-background">
+                    <source src="assets/videos/Welcome page.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="welcome-overlay">
+                    <div class="header-group">
+                        <div class="header-container">
+                             <img src="assets/images/PGX_Logo.png" alt="PowerGridX Logo" class="logo-welcome">
+                             <h1 class="brand-heading">
+                                <span class="brand-blue">PowerGrid</span><span class="brand-orange">X</span>
+                             </h1>
+                        </div>
+                        <h2 class="welcome-message">Welcome</h2>
+                    </div>
+                    
+                    <div class="benefit-display">
+                        <span id="benefitText"></span>
+                    </div>
+
+                    <a href="user-simulation.html" class="enter-btn">Enter Here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const benefits = [
+            "Reliable energy for homes and businesses.",
+            "Manage your usage with a single tap.",
+            "Top up your credit anytime, anywhere."
+        ];
+        let currentBenefit = 0;
+        const benefitTextElement = document.getElementById('benefitText');
+
+        function showNextBenefit() {
+            currentBenefit = (currentBenefit + 1) % benefits.length;
+            
+            if (benefitTextElement) {
+                benefitTextElement.style.opacity = 0;
+                setTimeout(() => {
+                    benefitTextElement.textContent = benefits[currentBenefit];
+                    benefitTextElement.style.opacity = 1;
+                }, 500);
+            }
+        }
+
+        if (benefitTextElement) {
+            benefitTextElement.textContent = benefits[0];
+            benefitTextElement.style.opacity = 1;
+        }
+
+        setInterval(showNextBenefit, 4000);
+    </script>
+</body>
+</html> 
