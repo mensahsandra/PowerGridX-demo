@@ -977,7 +977,7 @@
 
 <section  class="video-section">
       <video autoplay muted loop playsinline>
-        <source src="/assets/videos/with energy.mp4" type="video/mp4">
+        <source src="/assets/videos/withenergy.mp4" type="video/mp4">
       </video>
   <div class="container">
     <div class="video-wrapper">
@@ -1024,7 +1024,7 @@
       </div>
       <div class="scorecard-challenge-right">
         <video class="scorecard-challenge-video" autoplay muted loop playsinline>
-          <source src="/assets/videos/GH video.mp4" type="video/mp4" />
+          <source src="/assets/videos/ghvideo.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -1076,7 +1076,7 @@
     </div>
     <div class="scorecard-feature-right">
       <video autoplay muted loop playsinline>
-        <source src="/assets/videos/why now.mp4" type="video/mp4" />
+        <source src="/assets/videos/whynow.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
@@ -1370,34 +1370,29 @@
     </div>
   </footer>
   <script>
-  function openModal(id) {
-    document.getElementById(id).style.display = 'flex';
-  }
-
-  function closeModal(id) {
-    document.getElementById(id).style.display = 'none';
-  }
-</script>
-
-<script>
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', e => {
-      e.preventDefault();
-      document.querySelector(anchor.getAttribute('href'))
-        .scrollIntoView({ behavior: 'smooth' });
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(anchor.getAttribute('href'))
+          .scrollIntoView({ behavior: 'smooth' });
+      });
     });
   });
 </script>
 
 <script>
-  function openModal(id) {
-    document.getElementById(id).style.display = 'flex';
-  }
+  document.addEventListener('DOMContentLoaded', function() {
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
 
-  function closeModal(id) {
-    document.getElementById(id).style.display = 'none';
-  }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  });
 </script>
+
 <!-- Floating Feedback Button -->
 <a class="floating-feedback" onclick="openModal('feedbackModal')">Feedback</a>
 
