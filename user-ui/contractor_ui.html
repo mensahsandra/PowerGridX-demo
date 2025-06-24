@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PowerGridX Contractor App</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/assets/css/tailwind.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -359,29 +359,40 @@
     </div>
 
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
         const pages = document.querySelectorAll('.page');
         // Page Navigation
-        document.getElementById('login-btn').addEventListener('click', function() {
-            switchPage('dashboard-page');
-        });
+        const loginBtn = document.getElementById('login-btn');
+        if (loginBtn) {
+            loginBtn.addEventListener('click', function() {
+                switchPage('dashboard-page');
+            });
+        }
         
-        document.getElementById('back-to-dashboard').addEventListener('click', function() {
-            switchPage('dashboard-page');
-        });
+        const backToDashboard = document.getElementById('back-to-dashboard');
+        if (backToDashboard) {
+            backToDashboard.addEventListener('click', function() {
+                switchPage('dashboard-page');
+            });
+        }
         
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const pageId = this.getAttribute('data-page');
-                if (pageId) {
-                    switchPage(pageId);
-                    
-                    // Update active nav item
-                    document.querySelectorAll('.nav-item').forEach(navItem => {
-                        navItem.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                }
-            });
+            if (item) {
+                item.addEventListener('click', function() {
+                    const pageId = this.getAttribute('data-page');
+                    if (pageId) {
+                        switchPage(pageId);
+                        
+                        // Update active nav item
+                        document.querySelectorAll('.nav-item').forEach(navItem => {
+                            if (navItem !== this) {
+                                navItem.classList.remove('active');
+                            }
+                        });
+                        this.classList.add('active');
+                    }
+                });
+            }
         });
         
         function switchPage(pageId) {
@@ -393,59 +404,72 @@
         
         // Tab Navigation
         document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const tabId = this.getAttribute('data-tab');
-                
-                // Update active tab button
-                document.querySelectorAll('.tab-btn').forEach(tabBtn => {
-                    tabBtn.classList.remove('border-[#044080]', 'text-[#044080]');
-                    tabBtn.classList.add('text-gray-500');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Update active tab button
+                    document.querySelectorAll('.tab-btn').forEach(tabBtn => {
+                        if (tabBtn !== this) {
+                            tabBtn.classList.remove('border-[#044080]', 'text-[#044080]');
+                            tabBtn.classList.add('text-gray-500');
+                        }
+                    });
+                    this.classList.add('border-[#044080]', 'text-[#044080]');
+                    this.classList.remove('text-gray-500');
+                    
+                    // Show active tab content
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(tabId).classList.remove('hidden');
                 });
-                this.classList.add('border-[#044080]', 'text-[#044080]');
-                this.classList.remove('text-gray-500');
-                
-                // Show active tab content
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.add('hidden');
-                });
-                document.getElementById(tabId).classList.remove('hidden');
-            });
-        });
-        
-        // Toggle switch
-        document.querySelector('input[type="checkbox"]').addEventListener('change', function() {
-            const toggleHandle = this.nextElementSibling.querySelector('span');
-            if (this.checked) {
-                toggleHandle.classList.add('translate-x-6');
-                this.nextElementSibling.classList.add('bg-[#044080]');
-                this.nextElementSibling.classList.remove('bg-gray-200');
-            } else {
-                toggleHandle.classList.remove('translate-x-6');
-                this.nextElementSibling.classList.remove('bg-[#044080]');
-                this.nextElementSibling.classList.add('bg-gray-200');
             }
         });
         
+        // Toggle switch
+        const toggleSwitch = document.querySelector('input[type="checkbox"]');
+        if (toggleSwitch) {
+            toggleSwitch.addEventListener('change', function() {
+                const toggleHandle = this.nextElementSibling.querySelector('span');
+                if (this.checked) {
+                    toggleHandle.classList.add('translate-x-6');
+                    this.nextElementSibling.classList.add('bg-[#044080]');
+                    this.nextElementSibling.classList.remove('bg-gray-200');
+                } else {
+                    toggleHandle.classList.remove('translate-x-6');
+                    this.nextElementSibling.classList.remove('bg-[#044080]');
+                    this.nextElementSibling.classList.add('bg-gray-200');
+                }
+            });
+        }
+        
         // Profile menu item interactions
         document.querySelectorAll('.profile-menu-item').forEach(item => {
-            item.addEventListener('click', function() {
-                // Add a subtle feedback effect when clicked
-                this.style.backgroundColor = '#f0f9ff';
-                setTimeout(() => {
-                    this.style.backgroundColor = '';
-                }, 300);
-            });
+            if (item) {
+                item.addEventListener('click', function() {
+                    // Add a subtle feedback effect when clicked
+                    this.style.backgroundColor = '#f0f9ff';
+                    setTimeout(() => {
+                        this.style.backgroundColor = '';
+                    }, 300);
+                });
+            }
         });
         
         // Logout functionality
-        document.querySelector('.profile-menu-item:last-child').addEventListener('click', function() {
-            switchPage('login-page');
-            // Reset navigation
-            document.querySelectorAll('.nav-item').forEach(navItem => {
-                navItem.classList.remove('active');
+        const logoutItem = document.querySelector('.profile-menu-item:last-child');
+        if (logoutItem) {
+            logoutItem.addEventListener('click', function() {
+                switchPage('login-page');
+                // Reset navigation
+                document.querySelectorAll('.nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+                document.querySelector('.nav-item[data-page="dashboard-page"]').classList.add('active');
             });
-            document.querySelector('.nav-item[data-page="dashboard-page"]').classList.add('active');
-        });
+        }
+    });
     </script>
 </body>
 </html>
